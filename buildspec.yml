@@ -15,7 +15,9 @@ phases:
       - npm test
   build:
     commands:
+      - cd web
       - npm run build
+      - cd ..
   post_build:
     commands:
       # Remove existing node_modules to clear dev dependencies
