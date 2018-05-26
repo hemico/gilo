@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "angular": "^1.7.0",
     "express": "4.16.2"
   },
   "devDependencies": {

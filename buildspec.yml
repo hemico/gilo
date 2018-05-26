@@ -5,6 +5,7 @@ phases:
     commands:
       # Install dependencies needed for running tests
       - npm install
+      - npm install -g @angular/cli
 
       # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
@@ -12,6 +13,9 @@ phases:
     commands:
       # Discover and run unit tests in the 'tests' directory
       - npm test
+  build:
+    command:
+      - npm run build
   post_build:
     commands:
       # Remove existing node_modules to clear dev dependencies
@@ -28,4 +32,4 @@ artifacts:
     - appspec.yml
     - scripts/*
     - node_modules/**/*
-    - public/**/*
+    - web/dist/**/*
