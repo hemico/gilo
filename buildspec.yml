@@ -14,7 +14,7 @@ phases:
       # Discover and run unit tests in the 'tests' directory
       - npm test
   build:
-    command:
+    commands:
       - npm run build
   post_build:
     commands:
