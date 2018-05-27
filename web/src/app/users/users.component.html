@@ -1,0 +1,9 @@
+<h2>
+  List of users:
+</h2>
+<br>
+<ul  class = "list-group">
+  <li class = "list-group-item" *ngFor = "let user of users">
+    {{user.name +" "+ user.phone}}
+  </li>
+</ul>
