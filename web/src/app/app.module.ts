@@ -16,7 +16,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { OfferComponent } from './offer/offer.component';
 import { ActivityComponent } from './activity/activity.component';
 import { HomePageComponent } from './home-page/home-page.component';
-
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+//import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   declarations: [
@@ -33,8 +35,11 @@ import { HomePageComponent } from './home-page/home-page.component';
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase, 'gilo-app'),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+  //  AngularFireStorageModule,
     HttpModule,
     RouterModule.forRoot([
       {path: '', component: HomePageComponent},
