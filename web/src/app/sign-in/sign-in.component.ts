@@ -3,7 +3,7 @@ import {auth} from "firebase/app";
 import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
-  selector: 'sign-in',
+  selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })

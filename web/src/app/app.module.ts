@@ -24,6 +24,7 @@ import {UsersService} from "./services/users.service";
 import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
 import {AngularFireModule} from "angularfire2";
 
+
 @NgModule({
   declarations: [
     AppComponent,
