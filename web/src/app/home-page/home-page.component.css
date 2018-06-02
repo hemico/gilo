@@ -1,0 +1,14 @@
+container {
+  padding-top: 54px;
+  float: right;
+}
+
+@media (min-width: 992px) {
+  div {
+    padding-top: 30px;
+  }
+}
+
+.card {
+  height: 100%;
+}

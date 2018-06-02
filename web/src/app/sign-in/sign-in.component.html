@@ -1,0 +1,8 @@
+<div *ngIf="afAuth.authState | async as user; else showLogin">
+  <h1>שלום {{ user.displayName }}!</h1>
+  <button (click)="logout()">התנתק</button>
+</div>
+<ng-template #showLogin>
+  <p>התחבר בבקשה.</p>
+  <button (click)="login()">google התחבר עם</button>
+</ng-template>

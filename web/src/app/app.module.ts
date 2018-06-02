@@ -5,8 +5,7 @@ import { AppComponent } from './app.component';
 import { environment } from './../environments/environment';
 import {HttpModule} from "@angular/http";
 //Fire Base
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 import { NavigationComponent } from './navigation/navigation.component';
 import { UsersComponent } from './users/users.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -19,6 +18,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 //import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AuthService } from './services/auth.service';
+import { FormsModule }   from '@angular/forms';
+import {UsersService} from "./services/users.service";
+import {AngularFireDatabaseModule} from "angularfire2/database-deprecated";
+import {AngularFireModule} from "angularfire2";
 
 @NgModule({
   declarations: [
@@ -39,6 +43,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    FormsModule,
   //  AngularFireStorageModule,
     HttpModule,
     RouterModule.forRoot([
@@ -53,7 +58,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     ])
 
   ],
-  providers: [],
+  providers: [AuthService,UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
