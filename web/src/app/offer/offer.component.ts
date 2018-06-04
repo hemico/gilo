@@ -20,6 +20,7 @@ export class OfferComponent {
   newHero() {
     this.model = new Hero(42, '', '','','','','','','',);
   }
+
 }
 
 

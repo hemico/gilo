@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from "../services/users.service";
+import {AngularFirestore} from "angularfire2/firestore";
+import {Observable} from "rxjs/internal/Observable";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
-  users;
+export class UsersComponent {
+  public users: Observable<any[]>;
 
-  constructor(private service:UsersService) { }
-
-  ngOnInit() {
-    this.service.getUsers().subscribe(response=>{
-      console.log(response);
-      this.users = response;
-    });
+  constructor(db: AngularFirestore) {
+    this.users = db.collection('/users').valueChanges();
   }
 
 }

@@ -3,7 +3,13 @@
 </h2>
 <br>
 <ul  class = "list-group">
-  <li class = "list-group-item" *ngFor = "let user of users">
+  <li class = "list-group-item" *ngFor = "let user of users | async">
     {{user.name +" "+ user.phone}}
+  </li>
+</ul>
+<br>
+<ul>
+  <li *ngFor="let user of users | async">
+    <pre>{{ user | json }}</pre>
   </li>
 </ul>
