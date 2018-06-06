@@ -1,6 +1,12 @@
 container {
   padding-top: 54px;
   float: right;
+
+}
+.color {
+  background-color: #ffffff ;
+
+
 }
 
 @media (min-width: 992px) {
@@ -11,4 +17,176 @@ container {
 
 .card {
   height: 100%;
+}
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #4CAF50;
+}
+
+.right {
+  position: absolute;
+  right: 50px;
+  width: 300px;
+  padding: 10px;
+
+}
+.right2 {
+  position: absolute;
+  right: 400px;
+  width: 400px;
+  padding: 0px;
+  font-size: 60px;
+  top: 90px;
+
+}
+
+.right3 {
+  position: absolute;
+  right: 510px;
+  width: 400px;
+  padding: 0px;
+  font-size: 20px;
+  top: 170px;
+
+}
+
+.right4 {
+  position: absolute;
+  right: 310px;
+  width: 400px;
+  padding: 0px;
+  font-size: 20px;
+  top: 220px;
+
+}
+.left {
+  position: absolute;
+  left: 915px;
+  top: 350px;
+  width: 50px;
+  padding: 10px;
+}
+
+.left2 {
+  position: absolute;
+  left: 525px;
+  top: 350px;
+  width: 50px;
+  padding: 10px;
+}
+
+.left3 {
+  position: absolute;
+  left: 135px;
+  top: 350px;
+  width: 50px;
+  padding: 10px;
+}
+
+.center {
+  position: absolute;
+  right: 700px;
+  width: 300px;
+  padding: 10px;
+}
+
+.center2 {
+  position: absolute;
+  right: -405px;
+  width: 300px;
+  padding: 10px;
+}
+
+br {
+  display: block;
+  margin: 50px 0;
+}
+
+/*slideshow*/
+
+.container2 {
+  position:absolute;
+}
+.container2 img {
+  position:absolute;
+  width: 280px;
+  height:325px
+}
+@-webkit-keyframes xfade {
+  0% {
+    opacity: 1;
+  }
+  12.5% {
+    opacity:1;
+  }
+  16.5% {
+    opacity:0;
+  }
+  96% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+@keyframes xfade {
+  0% {
+    opacity: 1;
+  }
+  12.5% {
+    opacity:1;
+  }
+  16.5% {
+    opacity:0;
+  }
+  96% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+.container2 img:nth-child(8) {
+  -webkit-animation: xfade 120s 0s infinite;
+  animation: xfade 120s 0s infinite;
+}
+.container2 img:nth-child(7) {
+  -webkit-animation: xfade 120s 15s infinite;
+  animation: xfade 120s 15s infinite;
+}
+.container2 img:nth-child(6) {
+  -webkit-animation: xfade 120s 30s infinite;
+  animation: xfade 120s 30s infinite;
+}
+.container2 img:nth-child(5) {
+  -webkit-animation: xfade 120s 45s infinite;
+  animation: xfade 120s 45s infinite;
+}
+.container2 img:nth-child(4) {
+  -webkit-animation: xfade 120s 60s infinite;
+  animation: xfade 120s 60s infinite;
+}
+.container2 img:nth-child(3) {
+  -webkit-animation: xfade 120s 75s infinite;
+  animation: xfade 120s 75s infinite;
+}
+.container2 img:nth-child(2) {
+  -webkit-animation: xfade 120s 90s infinite;
+  animation: xfade 120s 90s infinite;
+}
+.container2 img:nth-child(1) {
+  -webkit-animation: xfade 120s 105s infinite;
+  animation: xfade 120s 105s infinite;
+}
+
+
+.demobox {
+  background-color: lightgray ;
+  padding: 90px ;
+  border-radius: 3px;
 }
