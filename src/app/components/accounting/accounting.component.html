@@ -1,0 +1,73 @@
+<div class="bodyEvents">
+  <div class="row">
+    <!-- Begin Page -->
+    <div class="col l12">
+      <div class="row">
+        <div class="col s12 center-align">
+          <flash-messages></flash-messages>
+        </div>
+      </div>
+
+      <ul class="collection with-header">
+        <li class="collection-header center-align">
+          <h4> פרטי גזבר </h4>
+        </li>
+      </ul>
+
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div *ngIf="accountant">
+      <div class="row">
+        <form class="col s12" #form="ngForm" (ngSubmit)="updateAccountant()">
+          <div class="row">
+            <div class="input-field col l4">
+              <input required  id="accountant.phoneNumber" type="number" autocomplete="off" [(ngModel)]="accountant.phoneNumber" name="accountant.phoneNumber">
+              <label class="active" for="accountant.phoneNumber"> מספר טלפון </label>
+            </div>
+            <div class="input-field col l4">
+              <input required  id="accountant.lastName" type="text" autocomplete="off" [(ngModel)]="accountant.lastName" name="accountant.lastName">
+              <label class="active" for="accountant.lastName"> שם משפחה </label>
+            </div>
+            <div class="input-field col l4">
+              <input required  id="accountant.firstName" type="text" autocomplete="off" [(ngModel)]="accountant.firstName" name="accountant.firstName">
+              <label class="active" for="accountant.firstName"> שם פרטי </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col l4">
+              <input required  id="accountant.Id" type="number" autocomplete="off" [(ngModel)]="accountant.Id" name="accountant.Id">
+              <label class="active" for="accountant.Id"> תעודת זהות </label>
+            </div>
+            <div class="input-field col l4">
+              <input required  id="accountant.Email" type="text" autocomplete="off" [(ngModel)]="accountant.Email" name="accountant.Email">
+              <label class="active" for="accountant.Email"> דואר אלקטרוני </label>
+            </div>
+            <div class="input-field col l4">
+              <input required  id="accountant.Address" type="text" autocomplete="off" [(ngModel)]="accountant.Address" name="accountant.Address">
+              <label class="active" for="accountant.Address"> כתובת </label>
+            </div>
+          </div>
+          <div class="row">
+              <div class="input-field col l4 offset-l4">
+                  <input required  id="accountant.password" type="text" autocomplete="off" [(ngModel)]="accountant.password" name="accountant.password">
+                  <label class="active" for="accountant.password"> סיסמה </label>
+                </div>
+          </div>
+
+          <div class="row">
+            <div class="col l12 center-align">
+            <button class="btn" [disabled]="!form.valid"> ערוך ועדכן פרטים </button>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+    </div>
+    <!-- End Page -->
+    
+  </div>
+</div>

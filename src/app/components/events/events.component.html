@@ -1,0 +1,402 @@
+<div class="bodyEvents">
+    <div class="row">
+        <!-- Begin Page -->
+        <div class="col l12">
+
+            <div class="row">
+                <div class="col s12 center-align">
+                    <flash-messages></flash-messages>
+                </div>
+            </div>
+
+<div class="row" *ngIf="eventSentBackToClient && userIsClient === true">
+        <ul class="collection with-header center">
+                <li class="collection-header">
+                    <h4> אירועים שחזרו מהמנהל </h4>
+                </li>
+            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th> מידע מלא </th>
+                        <th *ngIf="userIsClient">
+                            אשר אירוע
+                        </th>
+                        <th *ngIf="userIsClient">
+                            כיתות / חדרים
+                        </th>
+                        <th> חוב פעילות </th>
+                        <th> מחיר פעילות </th>
+                        <th> מועד סיום פעילות </th>
+                        <th> מועד תחילת פעילות </th>
+                        <th> שם פעילות </th>
+                        <th> בעל הפעילות </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <i class="material-icons" style="cursor: pointer" (click)="openModal(eventSentBackToClient)" href="#modal1">info</i>
+                        </td>
+                        <td *ngIf="userIsClient === true ">
+                            <div *ngIf="userIsClient">
+                                <div *ngIf="eventSentBackToClient && eventSentBackToClient.start_timeOLD - todaysDate < 604800000 ; else CanCancel">
+                                    <a class="waves-effect waves-light btn disabled">
+                                        <i class="material-icons right" (click)="ConfirmEvent(eventSentBackToClient)">add</i> אשר אירוע </a>
+                                </div>
+                                <ng-template #CanCancel>
+                                    <a class="waves-effect waves-light btn" (click)="ConfirmEvent(eventSentBackToClient)">
+                                        <i class="material-icons right">add</i> אשר אירוע </a>
+                                </ng-template>
+                            </div>
+                        </td>
+                        <td *ngIf="userIsWorker || userIsClient">
+                            <span *ngIf="eventSentBackToClient.amnot"> אמנות </span>
+                            <span *ngIf="eventSentBackToClient.auditorium"> , אודיטוריום </span>
+                            <span *ngIf="eventSentBackToClient.lobby"> , לובי </span>
+                            <span *ngIf="eventSentBackToClient.classA"> , מעבדה א </span>
+                            <span *ngIf="eventSentBackToClient.classB"> , מעבדה ב </span>
+                            <span *ngIf="eventSentBackToClient.classC"> , מעבדה ג </span>
+                            <span *ngIf="eventSentBackToClient.classD"> , מעבדה ד </span>
+                            <span *ngIf="eventSentBackToClient.classE"> , מעבדה ה </span>
+                        </td>
+                        <td> {{eventSentBackToClient.price - eventSentBackToClient.paid | currency:'ILS':symbol }} </td>
+                        <td (click)="openDiscount(event)"> {{eventSentBackToClient.price | currency:'ILS':symbol }}
+                            <div *ngIf="DiscountTo && DiscountTo.id === eventSentBackToClient.id">
+                                <div class="row">
+                                    <div class="col l4 offset-l8">
+                                        <input class="input-field" type="text" [(ngModel)]="DiscountPercentage" name="DiscountPercentage">
+                                        <i class="medium material-icons" (click)="approvePriceChange()">check_box</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td> {{eventSentBackToClient.end_time}} </td>
+                        <td> {{eventSentBackToClient.start_time}} </td>
+                        <td> {{eventSentBackToClient.name}} </td>
+                        <td *ngIf="userIsClient === true"> {{eventSentBackToClient.createdByName}} </td>
+                    </tr>
+                </tbody>
+            </table>
+</div>
+
+            <div *ngIf="events && events.length > 0; else noEvents" class="row">
+                <div class="col s12">
+                    <ul class="collection with-header center">
+                        <li class="collection-header">
+                            <h4> אירועים עתידיים </h4>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> מידע מלא </th>
+                                <th *ngIf="userIsClient || userIsAdmin">
+                                    ביטול אירוע
+                                </th>
+                                <th *ngIf="userIsClient || userIsWorker">
+                                    כיתות / חדרים
+                                </th>
+                                <th (click)="sortFuture('bill')"> חוב פעילות </th>
+                                <th (click)="sortFuture('price')"> מחיר פעילות </th>
+                                <th (click)="sortFuture('endTime')"> מועד סיום פעילות </th>
+                                <th (click)="sortFuture('beginTime')"> מועד תחילת פעילות </th>
+                                <th (click)="sortFuture('Name')"> שם פעילות </th>
+                                <th *ngIf="userIsClient === false"> ארגון </th>
+                                <th *ngIf="userIsClient === false"> בעל הפעילות </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let event of futureEvents">
+                                <td>
+                                    <i class="material-icons" style="cursor: pointer" (click)="openModal(event)" href="#modal1">info</i>
+                                </td>
+                                <td *ngIf="userIsClient === true || userIsAdmin === true ">
+                                    <div *ngIf="userIsClient">
+                                        <div *ngIf="event.start_timeOLD - todaysDate < 604800000 ; else CanCancel">
+                                            <a class="waves-effect waves-light btn disabled">
+                                                <i class="material-icons right">delete_forever</i> בטל אירוע </a>
+                                        </div>
+                                        <ng-template #CanCancel>
+                                            <a class="waves-effect waves-light btn" (click)="deleteEvent(event)">
+                                                <i class="material-icons right">delete_forever</i> בטל אירוע </a>
+                                        </ng-template>
+                                    </div>
+                                    <div *ngIf="userIsAdmin">
+                                        <a class="waves-effect waves-light btn" (click)="deleteEvent(event)">
+                                            <i class="material-icons right">delete_forever</i> בטל אירוע </a>
+                                    </div>
+                                </td>
+                                <td *ngIf="userIsWorker || userIsClient">
+                                    <span *ngIf="event.amnot"> אמנות </span>
+                                    <span *ngIf="event.auditorium"> , אודיטוריום </span>
+                                    <span *ngIf="event.lobby"> , לובי </span>
+                                    <span *ngIf="event.classA"> , מעבדה א </span>
+                                    <span *ngIf="event.classB"> , מעבדה ב </span>
+                                    <span *ngIf="event.classC"> , מעבדה ג </span>
+                                    <span *ngIf="event.classD"> , מעבדה ד </span>
+                                    <span *ngIf="event.classE"> , מעבדה ה </span>
+                                </td>
+                                <td> {{event.price - event.paid | currency:'ILS':symbol }} </td>
+                                <td (click)="openDiscount(event)"> {{event.price | currency:'ILS':symbol }}
+                                    <div *ngIf="DiscountTo && DiscountTo.id === event.id">
+                                        <div class="row">
+                                            <div class="col l4 offset-l8">
+                                                <input class="input-field" type="text" [(ngModel)]="DiscountPercentage" name="DiscountPercentage">
+                                                <i class="medium material-icons" (click)="approvePriceChange()">check_box</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td> {{event.end_time}} </td>
+                                <td> {{event.start_time}} </td>
+                                <td> {{event.name}} </td>
+                                <td *ngIf="userIsClient === false"> {{event.orgName}} </td>
+                                <td *ngIf="userIsClient === false"> {{event.createdByName}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="collection with-header center">
+                        <li class="collection-header">
+                            <h4> אירועים שהסתיימו </h4>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> מידע מלא </th>
+                                <th> סטטוס אירוע </th>
+                                <th (click)="sortPast('bill')"> חוב פעילות </th>
+                                <th (click)="sortPast('price')"> מחיר פעילות </th>
+                                <th (click)="sortPast('endTime')"> מועד סיום פעילות </th>
+                                <th (click)="sortPast('beginTime')"> מועד תחילת פעילות </th>
+                                <th (click)="sortPast('Name')"> שם פעילות </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let event of pastEvents">
+                                <td>
+                                    <i class="material-icons" (click)="openModal(event)" href="#modal1" style="cursor: pointer">info</i>
+                                </td>
+
+                                <td>
+                                    אירוע הסתיים
+                                </td>
+                                <td> {{event.price - event.paid | currency:'ILS':symbol }} </td>
+                                <td> {{event.price | currency:'ILS':symbol }} </td>
+                                <td> {{event.end_time}} </td>
+                                <td> {{event.start_time}} </td>
+                                <td> {{event.name}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div *ngIf="userIsAdmin">
+                        <ul class="collection with-header center">
+                            <li class="collection-header">
+                                <h4> אירועים שבוטלו על ידי הלקוח/מנהל </h4>
+                            </li>
+                        </ul>
+                        <table>
+                            <thead class="none">
+                                <tr>
+                                    <th> מידע מלא </th>
+
+                                    <th> מחיר פעילות </th>
+                                    <th> מועד סיום פעילות </th>
+                                    <th> מועד תחילת פעילות </th>
+                                    <th> שם פעילות </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let event of deletedevents">
+                                    <td>
+                                        <i class="material-icons" (click)="openModal(event)" href="#modal1" style="cursor: pointer">info</i>
+                                    </td>
+
+
+                                    <td> {{event.price | currency:'ILS':symbol }} </td>
+                                    <td> {{event.end_time}} </td>
+                                    <td> {{event.start_time}} </td>
+                                    <td> {{event.name}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row"></div>
+                        <div class="row"></div>
+                        <ul class="collection with-header center">
+                            <li class="collection-header">
+                                <h4> אירועים שלא אושרו על ידי הלקוח </h4>
+                            </li>
+                        </ul>
+                        <table>
+                            <thead class="none">
+                                <tr>
+                                    <th> שלח הצעה בחזרה ללקוח </th>
+                                    <th> מידע מלא על האירוע </th>
+                                    <th> מחיר פעילות </th>
+                                    <th> מועד סיום פעילות </th>
+                                    <th> מועד תחילת פעילות </th>
+                                    <th> שם פעילות </th>
+                                    <th> בעל האירוע </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let event of unconfirmedevents">
+                                    <td>
+                                        <i class="material-icons" (click)="sendToBackToClient(event)">send</i>
+                                    </td>
+                                    <td>
+                                        <i class="material-icons" (click)="openModal(event)" href="#modal1" style="cursor: pointer">info</i>
+                                    </td>
+                                    <td (click)="openDiscount(event)"> {{event.price | currency:'ILS':symbol }}
+                                        <div *ngIf="DiscountTo && DiscountTo.id === event.id">
+                                            <div class="row">
+                                                <div class="col l4 offset-l8">
+                                                    <input class="input-field" type="text" [(ngModel)]="DiscountPercentage" name="DiscountPercentage">
+                                                    <i class="medium material-icons" (click)="approvePriceChangeUnconfirmed()">check_box</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td> {{event.end_time}} </td>
+                                    <td> {{event.start_time}} </td>
+                                    <td> {{event.name}} </td>
+                                    <td> {{event.createdByName}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+            <ng-template #noEvents>
+                <ul class="collection with-header center">
+                    <li class="collection-header">
+                        <h4> אין לך אירועים ! </h4>
+                    </li>
+                    <div *ngIf="userIsClient">
+                        <li class="collection-item center">
+                            <button class="btn" routerLink="/createevent">
+                                צור אירוע חדש
+                            </button>
+                        </li>
+                    </div>
+                </ul>
+            </ng-template>
+        </div>
+        <!-- End Page -->
+    </div>
+</div>
+
+
+
+<div *ngIf="tempEvent" id="modal1" class="modal sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+    <div class="modal-content">
+        <div class="col l12 center-align">
+            <h4>
+                פרטי האירוע
+            </h4>
+        </div>
+        <div class="col l12 right-align">
+            <div style="font-weight: bold;">
+                נוצר על ידי
+            </div>
+            <p>
+                שם : {{tempEvent.createdByName}}
+            </p>
+            <p>
+                {{tempEvent.createdBy}} : דוא"ל
+            </p>
+            <p>
+                ארגון : {{tempEvent.orgName}}
+            </p>
+            <div style="font-weight: bold;">
+                פרטי האירוע
+            </div>
+            <p>
+                שם פעילות : {{tempEvent.name}}
+            </p>
+
+            <div class="row">
+                <div class="col l4 offset-l6">
+                    {{tempEvent.start_time}}
+                </div>
+                <div class="col l2">
+                    : התחלה
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col l4 offset-l6">
+                    {{tempEvent.end_time}}
+                </div>
+                <div class="col l2">
+                    : סיום
+                </div>
+            </div>
+
+            <p style="font-weight: bold;">
+                :חדרים שנבחרו
+            </p>
+            <span *ngIf="tempEvent.amnot === true">
+                ,אמנות
+            </span>
+            <span *ngIf="tempEvent.auditorium === true">
+                ,אודיטוריום
+            </span>
+            <span *ngIf="tempEvent.lobby === true">
+                ,לובי
+            </span>
+            <span *ngIf="tempEvent.classA === true">
+                ,מעבדה א
+            </span>
+            <span *ngIf="tempEvent.classB === true">
+                ,מעבדה ב
+            </span>
+            <span *ngIf="tempEvent.classC === true">
+                ,מעבדה ג
+            </span>
+            <span *ngIf="tempEvent.classD === true">
+                ,מעבדה ד
+            </span>
+            <span *ngIf="tempEvent.classE === true">
+                מעבדה ה
+            </span>
+
+            <p style="font-weight: bold;">
+                :ציוד שנבחר
+            </p>
+            <span *ngIf="tempEvent.mdonot === true">
+                מדונות : {{tempEvent.mdonotAmount}}
+            </span>
+            <span *ngIf="tempEvent.tables === true">
+                שולחנות : {{tempEvent.tablesAmount}}
+            </span>
+            <span *ngIf="tempEvent.chairs === true">
+                כיסאות : {{tempEvent.chairsAmount}}
+            </span>
+            <span *ngIf="tempEvent.microphones === true">
+                מיקרופונים : {{tempEvent.microphonesAmount}}
+            </span>
+
+            <p>
+                עלות האירוע : {{tempEvent.price}}
+            </p>
+            <p style="color:red;" *ngIf="tempEvent.price - tempEvent.paid > 0">
+                חוב האירוע : {{tempEvent.price - tempEvent.paid}}
+            </p>
+            <p style="color:green;" *ngIf=" !(tempEvent.price - tempEvent.paid) > 0">
+                אין חוב לאירוע זה
+            </p>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col l12 center-align">
+            <a class="waves-effect waves-green btn-flat center-align" (click)="closeModal()"> חזור לרשימת האירועים </a>
+        </div>
+    </div>
+</div>

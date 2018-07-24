@@ -1,0 +1,26 @@
+p#lower {
+    line-height: 1;
+}
+p {
+    line-height: 3;
+}
+p#smaller {
+    line-height: 2.8;
+}
+p#smaller2 {
+    line-height: 1;
+}
+.body {
+    direction: rtl;
+    margin-right:0px;
+    margin-top:15px;
+    color:black;
+}
+.col {
+    padding:0px;
+    margin:0px;
+}
+.row {
+    padding:0px;
+    margin:0px;
+}

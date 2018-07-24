@@ -1,0 +1,73 @@
+<div *ngIf="userIsLoggedIn && userIsAdmin">
+    <div class="row">
+        <app-navboxesadmin></app-navboxesadmin>
+    </div>
+    <div class="row"></div>
+</div>
+
+<div *ngIf="userIsLoggedIn && userIsGazbar">
+    <div class="row">
+        <flash-messages></flash-messages>
+    </div>
+    <div class="row">
+        <div class="col l12">
+            <table>
+                <thead>
+                    <tr>
+                        <th> עדכן תשלום </th>
+                        <th (click)="sort('bill')"> חוב פעילות </th>
+                        <th (click)="sort('price')"> מחיר פעילות </th>
+                        <th (click)="sort('endTime')"> מועד סיום פעילות </th>
+                        <th (click)="sort('beginTime')"> מועד תחילת פעילות </th>
+                        <th (click)="sort('Name')"> שם פעילות </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let event of events">
+                        <td>
+                            <div *ngIf="eventToEdit !== event.id">
+                                <a class="waves-effect waves-light btn" (click)="toEdit(event)">
+                                    <i class="material-icons right">edit</i> עדכן תשלום
+                                </a>
+                            </div>
+                            <div *ngIf="eventToEdit === event.id">
+                                <div class="row">
+                                    <div class="input-field col 12">
+                                        <div class="col l10">
+                                            <input type="number" placeholder="0" [(ngModel)]="newBill" name="newBill">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l3">
+                                        <button class="btn blue" (click)="confirmEdit(event)"> עדכן </button>
+                                    </div>
+                                    <div class="col l3">
+                                        <button class="btn red" (click)="disableEdit()"> X </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td> {{event.price - event.paid | currency:'ILS':symbol }} </td>
+                        <td> {{event.price | currency:'ILS':symbol }} </td>
+                        <td> {{event.end_time}} </td>
+                        <td> {{event.start_time}} </td>
+                        <td> {{event.name}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="userIsLoggedIn && userIsWorker">
+    <div class="row">
+        <app-navboxesworker></app-navboxesworker>
+    </div>
+</div>
+
+<div *ngIf="userIsLoggedIn && userIsClient">
+    <div class="row">
+        <app-navboxesclient></app-navboxesclient>
+    </div>
+</div>

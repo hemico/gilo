@@ -1,0 +1,35 @@
+label {
+    direction: rtl;
+    padding-right:30%;
+}
+.select-dropdown {
+    text-align: center;
+}
+.dropdown-content li {
+    text-align: center;
+}
+input {
+    direction: rtl;
+}
+.danger {
+    background-color:red;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+.success {
+    background-color:green;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}

@@ -1,0 +1,82 @@
+<div class="bodyEvents">
+  <div class="row">
+    <!-- Begin Page -->
+    <div class="col l12">
+      <div class="row">
+        <div class="col s12 center-align">
+          <flash-messages></flash-messages>
+        </div>
+      </div>
+
+      <ul class="collection with-header">
+        <li class="collection-header center-align">
+          <h4> ניהול מחירון</h4>
+        </li>
+      </ul>
+
+      <div class="row"></div>
+      <div class="row"></div>
+
+      <div class="row">
+        <form (ngSubmit)="updateMheron()" #form="ngForm">
+
+          <div class="input-field col l2 offset-l1 center-align">
+            <input id="mheron.lobby" type="number" [(ngModel)]="mheron.lobby" name="mheron.lobby" required>
+            <label for="mheron.lobby" class="active"> לובי </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input id="mheron.hederomanot" type="number" [(ngModel)]="mheron.hederomanot" name="mheron.hederomanot" required>
+            <label for="mheron.hederomanot" class="active"> חדר אומנות/מחול </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.hedermavada" name="mheron.hedermavada" required>
+            <label> חדר מעבדה </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.kamotshaotbyom" name="mheron.kamotshaotbyom" required>
+            <label> כמות שעות ביום </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.hagbara" name="mheron.hagbara" required>
+            <label> הגברה </label>
+          </div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="input-field col l2 offset-l1 center-align">
+            <input type="number" [(ngModel)]="mheron.teora" name="mheron.teora" required>
+            <label> תאורה </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.hagbaraandteora" name="mheron.hagbaraandteora" required>
+            <label> הגברה ותאורה </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.odoteriumyome" name="mheron.odoteriumyome" required>
+            <label> אודיטוריום יומי </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.odoteriumshaate" name="mheron.odoteriumshaate" required>
+            <label> אודיטוריום שעתי </label>
+          </div>
+          <div class="input-field col l2 center-align">
+            <input type="number" [(ngModel)]="mheron.auditoriumminimumprice" name="mheron.auditoriumminimumprice" required>
+            <label> אודיטוריום מחיר מינימאלי </label>
+          </div>
+          <div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row">
+              <div class="col l12 center-align center-align">
+                <button class="btn" [disabled]="!form.valid"> update </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+    <!-- End Page -->
+
+  </div>
+</div>

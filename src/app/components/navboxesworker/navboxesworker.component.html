@@ -1,0 +1,144 @@
+<div class="body" *ngIf="userIsWorker">
+
+  <flash-messages></flash-messages>
+
+  <div class="row paddingHelper">
+    <div class="boxThree">
+      <div class="boxTitle">
+        האירוע הבא
+      </div>
+      <div *ngIf="nextEvent">
+        <div class="boxContent">
+          שם האירוע: {{nextEvent.name}}
+        </div>
+        <div class="boxContent">
+          נוצר על ידי: {{nextEvent.createdByName}}
+        </div>
+        <div class="boxContent">
+          ארגון: {{nextEvent.orgName}}
+        </div>
+        <div class="boxContent">
+          התחלה: {{nextEvent.start_time}}
+        </div>
+        <div class="boxContent">
+          סיום: {{nextEvent.end_time}}
+        </div>
+        <div class="boxContent">
+          כיתות:
+          <span *ngIf="nextEvent.amnot"> אמנות </span>
+          <span *ngIf="nextEvent.auditorium"> , אודיטוריום </span>
+          <span *ngIf="nextEvent.lobby"> , לובי </span>
+          <span *ngIf="nextEvent.classA"> , מעבדה א </span>
+          <span *ngIf="nextEvent.classB"> , מעבדה ב </span>
+          <span *ngIf="nextEvent.classC"> , מעבדה ג </span>
+          <span *ngIf="nextEvent.classD"> , מעבדה ד </span>
+          <span *ngIf="nextEvent.classE"> , מעבדה ה </span>
+        </div>
+        <div class="boxContent">
+          ציוד:
+          <span *ngIf="nextEvent.mdonot"> מדונות - {{nextEvent.mdonotAmount}}</span>
+          <span *ngIf="nextEvent.microphones"> , מיקרופונים - {{nextEvent.microphonesAmount}} </span>
+          <span *ngIf="nextEvent.tables"> , שולחנות - {{nextEvent.tablesAmount}} </span>
+          <span *ngIf="nextEvent.chairs"> , כיסאות - {{nextEvent.chairsAmount}} </span>
+          <span *ngIf="nextEvent.personSound"> , איש סאונד </span>
+          <span *ngIf="nextEvent.personLight"> , איש תאורה </span>
+        </div>
+        <div class="boxContent">
+          סכום אירוע : {{nextEvent.price}}
+        </div>
+        <div class="boxContent">
+          חוב אירוע : {{nextEvent.price - nextEvent.paid}}
+        </div>
+      </div>
+    </div>
+    <div class="boxTwo">
+      <div class="boxTitle">
+        האירוע שהסתיים לאחרונה
+      </div>
+      <div *ngIf="previousEvent">
+        <div class="boxContent">
+          שם האירוע: {{previousEvent.name}}
+        </div>
+        <div class="boxContent">
+          נוצר על ידי: {{previousEvent.createdByName}}
+        </div>
+        <div class="boxContent">
+          ארגון: {{previousEvent.orgName}}
+        </div>
+        <div class="boxContent">
+          התחלה: {{previousEvent.start_time}}
+        </div>
+        <div class="boxContent">
+          סיום: {{previousEvent.end_time}}
+        </div>
+        <div class="boxContent">
+          כיתות:
+          <span *ngIf="previousEvent.amnot"> אמנות </span>
+          <span *ngIf="previousEvent.auditorium"> , אודיטוריום </span>
+          <span *ngIf="previousEvent.lobby"> , לובי </span>
+          <span *ngIf="previousEvent.classA"> , מעבדה א </span>
+          <span *ngIf="previousEvent.classB"> , מעבדה ב </span>
+          <span *ngIf="previousEvent.classC"> , מעבדה ג </span>
+          <span *ngIf="previousEvent.classD"> , מעבדה ד </span>
+          <span *ngIf="previousEvent.classE"> , מעבדה ה </span>
+        </div>
+        <div class="boxContent">
+          ציוד:
+          <span *ngIf="previousEvent.mdonot"> מדונות - {{previousEvent.mdonotAmount}}</span>
+          <span *ngIf="previousEvent.microphones"> , מיקרופונים - {{previousEvent.microphonesAmount}} </span>
+          <span *ngIf="previousEvent.tables"> , שולחנות - {{previousEvent.tablesAmount}} </span>
+          <span *ngIf="previousEvent.chairs"> , כיסאות - {{previousEvent.chairsAmount}} </span>
+          <span *ngIf="previousEvent.personSound"> , איש סאונד </span>
+          <span *ngIf="previousEvent.personLight"> , איש תאורה </span>
+        </div>
+        <div class="boxContent">
+          סכום אירוע : {{previousEvent.price}}
+        </div>
+        <div class="boxContent">
+          חוב אירוע : {{previousEvent.price - previousEvent.paid}}
+        </div>
+      </div>
+    </div>
+    <div class="boxOne">
+      <div class="boxTitle">
+        הודעת מנהל
+      </div>
+      <div class="boxContent">
+        <div *ngIf="msg">
+          {{msg.content}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row paddingHelper">
+    <div class="col l6 blackColorText">
+      <ul materialize="collapsible" class="collapsible">
+        <li>
+          <div class="collapsible-header active">
+            האירועים שלי - {{eventsLength}}
+          </div>
+          <div class="col l12" *ngIf="showcharts === true">
+            <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [labels]="true" [legend]="true" [legendTitle]="true">
+            </ngx-charts-pie-chart>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col l6 blackColorText">
+      <ul materialize="collapsible" class="collapsible">
+        <li>
+          <div class="collapsible-header active">
+            תקציב אירועים
+          </div>
+          <div class="col l12" *ngIf="showcharts === true">
+            <ngx-charts-pie-grid [view]="view" [scheme]="colorScheme" [results]="single2" label=' ש"ח '>
+            </ngx-charts-pie-grid>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>

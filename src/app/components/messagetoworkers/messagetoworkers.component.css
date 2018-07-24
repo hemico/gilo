@@ -1,0 +1,7 @@
+textarea.materialize-textarea {
+    text-align: right;
+    direction: rtl;
+}
+.input-field.col label {
+    left: 50%;
+}

@@ -1,0 +1,63 @@
+<flash-messages></flash-messages>
+<div class="row">
+  <ul class="collection with-header center-align">
+    <li class="collection-header">
+      <h4> הרשם למערכת גילה </h4>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <form class="col l12" #form="ngForm" (ngSubmit)="Register()">
+
+    <div class="row">
+      <div class="input-field col l2 offset-l5">
+        <input id="newUser.Name" type="text" class="validate" required [(ngModel)]="newUser.Name" name="newUser.Name">
+        <label for="newUser.Name"> שם מלא </label>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col l2 offset-l5">
+          <input id="newUser.Phone" type="text" class="validate" required [(ngModel)]="newUser.Phone" name="newUser.Phone">
+          <label for="newUser.Phone"> מספר טלפון </label>
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="input-field col l2 offset-l5">
+        <input id="newUser.Email" type="text" class="validate" required [(ngModel)]="newUser.Email" name="newUser.Email">
+        <label for="newUser.Email"> דואל אלקטרוני </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col l2 offset-l5">
+        <input id="newUser.Mobile" type="text" class="validate" required [(ngModel)]="newUser.Mobile" name="newUser.Mobile">
+        <label for="newUser.Mobile"> פלאפון </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col l2 offset-l5" *ngIf="organizations">
+        <select materialize="material_select" [(ngModel)]="newUser.Org" name="newUser.Org" (ngModelChange)="onChange($event)" required>
+          <option disabled> נא לבחור ארגון </option>
+          <option *ngFor="let org of organizations" [value]="org.Name">{{org.Name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col l2 offset-l5">
+        <input id="newUser.password" type="text" class="validate" required [(ngModel)]="newUser.password" name="newUser.password">
+        <label for="newUser.password"> סיסמה </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l2 offset-l5 center-align">
+        <button class="btn" [disabled]="!form.valid"> הירשם </button>
+      </div>
+    </div>
+
+  </form>
+</div>

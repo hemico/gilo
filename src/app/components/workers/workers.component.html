@@ -1,0 +1,298 @@
+<div class="row">
+  <div class="col l12">
+    <ul class="collection with-header center">
+      <li class="collection-header">
+        <h4> ניהול עובדים </h4>
+        <div class="right-align" style="margin-top:-40px">
+          <div *ngIf="addIconEnabled; else addIconDisabled">
+            <button (click)="addIconFun()" class="btn" style="margin-right:20px;margin-top:-15px;"> הוסף עובד </button>
+            <i (click)="addIconFun()" class="material-icons" style="cursor: pointer;">add_circle</i>
+          </div>
+          <ng-template #addIconDisabled>
+            <i (click)="addIconFun()" class="material-icons" style="cursor: pointer;">cancel</i>
+          </ng-template>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <flash-messages></flash-messages>
+</div>
+
+<div *ngIf="EnableAddForm">
+
+  <div class="row center-align" style="color:purple;font-style: italic;text-decoration: underline;">
+    <h4> הוספת עובד חדש </h4>
+  </div>
+
+  <div class="row">
+    <form class="col l12" #form="ngForm" (ngSubmit)="addWorker()">
+      <div class="row">
+        <div class="input-field col l2">
+          <input id="newWorkerPassword" type="text" required [(ngModel)]="newWorker.Password" name="newWorker.Password">
+          <label for="newWorkerPassword"> סיסמה </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="newWorkerEmail" type="text" required [(ngModel)]="newWorker.Email" name="newWorker.Email">
+          <label for="newWorkerEmail"> מייל </label>
+        </div>
+        <div class="input-field col l2">
+          <input id="newWorkerPhone" type="number" required [(ngModel)]="newWorker.Phone" name="newWorker.Phone">
+          <label for="newWorkerPhone"> טלפון </label>
+        </div>
+        <div class="input-field col l2">
+          <input id="newWorkerId" type="number" required [(ngModel)]="newWorker.Id" name="newWorker.Id">
+          <label for="newWorkerId"> תעודת זהות </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="newWorkerName" type="text" required [(ngModel)]="newWorker.Name" name="newWorker.Name">
+          <label for="newWorkerName"> שם עובד </label>
+        </div>
+      </div>
+      <div class="row">
+          <label>
+            <input type="checkbox" [(ngModel)]="newWorker.Friday" name="newWorker.Friday">
+            <span> שישי </span>
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="newWorker.Thursday" name="newWorker.Thursday">
+            <span> חמישי </span>
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="newWorker.Wednesday" name="newWorker.Wednesday">
+            <span> רביעי </span>
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="newWorker.Tuesday" name="newWorker.Tuesday">
+            <span> שלישי </span>
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="newWorker.Monday" name="newWorker.Monday">
+            <span> שני </span>
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="newWorker.Sunday" name="newWorker.Sunday">
+            <span> ראשון </span>
+          </label>
+      </div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row">
+        <div class="col l12 center-align">
+          <button class="btn" [disabled]="!form.valid"> הוסף עובד </button>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+    </form>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col l12">
+    <table>
+      <thead>
+        <tr>
+          <th> מחק </th>
+          <th> עדכן </th>
+          <th> שישי </th>
+          <th> חמישי </th>
+          <th> רביעי </th>
+          <th> שלישי </th>
+          <th> שני </th>
+          <th> ראשון </th>
+          <th> דוא"ל </th>
+          <th> טלפון </th>
+          <th> תעודת זהות </th>
+          <th> שם </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let worker of Workers">
+          <td>
+            <i (click)="DeleteWorker(worker)" class="material-icons" style="cursor: pointer;">delete</i>
+          </td>
+          <td>
+            <i (click)="enableEditWorker(worker)" class="material-icons" style="cursor: pointer;">edit</i>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <label>
+                <input type="checkbox" [(ngModel)]="newWorkerToEdit.Friday" name="newWorkerToEdit.Friday">
+                <span></span>
+              </label>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              <div *ngIf="worker.Friday">
+                <label>
+                  <input type="checkbox" checked="checked" disabled>
+                  <span></span>
+                </label>
+              </div>
+              <div *ngIf="!worker.Friday">
+                <label>
+                  <input type="checkbox" disabled>
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <label>
+                <input type="checkbox" [(ngModel)]="newWorkerToEdit.Thursday" name="newWorkerToEdit.Thursday">
+                <span></span>
+              </label>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              <div *ngIf="worker.Thursday">
+                <label>
+                  <input type="checkbox" checked="checked" disabled>
+                  <span></span>
+                </label>
+              </div>
+              <div *ngIf="!worker.Thursday">
+                <label>
+                  <input type="checkbox" disabled>
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <label>
+                <input type="checkbox" [(ngModel)]="newWorkerToEdit.Wednesday" name="newWorkerToEdit.Wednesday">
+                <span></span>
+              </label>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              <div *ngIf="worker.Wednesday">
+                <label>
+                  <input type="checkbox" checked="checked" disabled>
+                  <span></span>
+                </label>
+              </div>
+              <div *ngIf="!worker.Wednesday">
+                <label>
+                  <input type="checkbox" disabled>
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <label>
+                <input type="checkbox" [(ngModel)]="newWorkerToEdit.Tuesday" name="newWorkerToEdit.Tuesday">
+                <span></span>
+              </label>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              <div *ngIf="worker.Tuesday">
+                <label>
+                  <input type="checkbox" checked="checked" disabled>
+                  <span></span>
+                </label>
+              </div>
+              <div *ngIf="!worker.Tuesday">
+                <label>
+                  <input type="checkbox" disabled>
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <label>
+                <input type="checkbox" [(ngModel)]="newWorkerToEdit.Monday" name="newWorkerToEdit.Monday">
+                <span></span>
+              </label>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              <div *ngIf="worker.Monday">
+                <label>
+                  <input type="checkbox" checked="checked" disabled>
+                  <span></span>
+                </label>
+              </div>
+              <div *ngIf="!worker.Monday">
+                <label>
+                  <input type="checkbox" disabled>
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <label>
+                <input type="checkbox" [(ngModel)]="newWorkerToEdit.Sunday" name="newWorkerToEdit.Sunday">
+                <span></span>
+              </label>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              <div *ngIf="worker.Sunday">
+                <label>
+                  <input type="checkbox" checked="checked" disabled>
+                  <span></span>
+                </label>
+              </div>
+              <div *ngIf="!worker.Sunday">
+                <label>
+                  <input type="checkbox" disabled>
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <input type="text" [(ngModel)]="newWorkerToEdit.Email" name="newWorkerToEdit.Email" required>
+              <br><br>
+              <button class="btn red" (click)="cancelEdit()"> בטל עדכון </button>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              {{worker.Email}}
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <input type="text" [(ngModel)]="newWorkerToEdit.Phone" name="newWorkerToEdit.Phone" required>
+              <br><br>
+              <button class="btn green" (click)="editWorker(worker.id)"> עדכן פרטי עובד </button>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              {{worker.Phone}}
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <input type="text" [(ngModel)]="newWorkerToEdit.Id" name="newWorkerToEdit.Id" required>
+              <br><br>
+              <button class="btn transparent" style="border:none;box-shadow: none;cursor: context-menu;">   </button>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              {{worker.Id}}
+            </div>
+          </td>
+          <td>
+            <div *ngIf="workerToEdit === worker.id">
+              <input type="text" [(ngModel)]="newWorkerToEdit.Name" name="newWorkerToEdit.Name" required>
+              <br><br>
+              <button class="btn transparent" style="border:none;box-shadow: none;cursor: context-menu;">   </button>
+            </div>
+            <div *ngIf="workerToEdit !== worker.id">
+              {{worker.Name}}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

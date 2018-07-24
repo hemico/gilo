@@ -1,0 +1,109 @@
+.bodycreateEvent {
+    display: block;
+    color:#26A69A;
+}
+.noCursor {
+    cursor: none;
+}
+input::-webkit-input-placeholder {
+    color: #26A69A;
+    font-weight: bold;
+    text-align: right;
+  }
+  .input-field>label {
+    color:#26A69A;
+  }
+  .ng-dirty {
+    direction: rtl;
+  }
+label {
+    color:black;
+}
+.input-field.col label {
+    left: 88%;
+}
+table.highlight tbody tr:hover {
+    background-color: #eee !important;
+}
+
+
+.selectsbg {
+    background-color: #EFEFEF;
+    border: 2px solid #26A69A;
+    border-radius: 5px;
+    margin-top:15px;
+}
+.form {
+padding-right:200px;
+padding-top:50px;
+}
+.nameofpelot {
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:20px;
+    padding-right:20px;
+    border: 1px solid grey;
+    border-radius: 2px;
+}
+.hearot {
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:20px;
+    padding-right:20px;
+    border: 1px solid grey;
+    border-radius: 2px;
+}
+
+.danger {
+    background-color:#ff4c4c;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+.success {
+    background-color:green;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+.warning {
+    background-color:blue;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+input.none {
+    all: unset;
+    text-align: center;
+}
+.blacking {
+    color:black;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1920px) and (max-width: 1920px) {
+    .input-field.col label {
+        left: 92%;
+    }   
+    .selectsbg {
+        background-color: #EFEFEF;
+        border: 2px solid #26A69A;
+        border-radius: 5px;
+        margin-top:30px;
+    }
+}

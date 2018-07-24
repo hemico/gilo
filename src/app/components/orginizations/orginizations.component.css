@@ -1,0 +1,14 @@
+label {
+    padding-right:10%;
+    text-align: right;
+    direction: rtl;
+}
+.input-field>label {
+    right: 20%;
+    text-align: right;
+    direction: rtl;
+}
+input {
+    text-align: right;
+    direction: rtl;
+}

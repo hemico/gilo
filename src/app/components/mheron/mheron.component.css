@@ -1,0 +1,7 @@
+input { 
+    text-align: center;
+}
+.input-field>label {
+    left:0%;
+    position: relative;
+}

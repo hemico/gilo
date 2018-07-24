@@ -1,0 +1,378 @@
+<div class="bodycreateEvent">
+  <div class="row">
+    <div class="col l12">
+      <!-- Begin Page -->
+      <div *ngIf="!userIsNotConfirmedYet">
+        <div class="selectsbg">
+
+          <div class="row">
+            <div class="col l12">
+              <div style="font-size:26px;font-weight:bold;text-align: center;">
+                צור אירוע
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+
+            <div class="row">
+              <div class="col s12 center-align">
+                <flash-messages></flash-messages>
+              </div>
+            </div>
+
+            <div class="col l8 offset-l2 right-align">
+              <form>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="eventName" type="text" [(ngModel)]="eventName" name="eventName" required>
+                    <label for="eventName"> שם פעילות </label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col s12"> חדרים מבוקשים </div>
+                </div>
+                <div class="row">
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="classA" name="classA" />
+                      <span> מעבדה א </span>
+
+                    </label>
+                  </div>
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="lobby" name="lobby" />
+                      <span> לובי </span>
+                    </label>
+                  </div>
+
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="amnot" name="amnot" />
+                      <span> אמנות </span>
+                    </label>
+                  </div>
+
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="auditorium" name="auditorium" />
+                      <span> אודיטוריום </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="classE" name="classE" />
+                      <span> מעבדה ה </span>
+                    </label>
+                  </div>
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="classD" name="classD" />
+                      <span> מעבדה ד </span>
+                    </label>
+                  </div>
+
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="classC" name="classC" />
+                      <span> מעבדה ג </span>
+                    </label>
+                  </div>
+
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="classB" name="classB" />
+                      <span> מעבדה ב </span>
+
+                    </label>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col s12"> ציוד נדרש </div>
+                </div>
+                <div class="row">
+                  <div class="col l3 left-align offset-l3">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="microphones" name="microphones" />
+                      <span> מיקרופונים </span>
+                      <div *ngIf="microphones">
+                        <input type="number" [(ngModel)]="microphonesAmount" name="microphonesAmount" class="col l6 none" required>
+                      </div>
+                    </label>
+                  </div>
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="personLight" name="personLight" />
+                      <span> איש תאורה </span>
+                    </label>
+                  </div>
+
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="personSound" name="personSound" />
+                      <span> איש סאונד </span>
+
+                    </label>
+                  </div>
+
+
+                </div>
+                <div class="row">
+                  <div class="col l3 left-align left-align offset-l3">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="chairs" name="chairs" />
+                      <span> כסאות </span>
+                      <div *ngIf="chairs">
+                        <input type="number" [(ngModel)]="chairsAmount" name="chairsAmount" class="col l6 none" required>
+                      </div>
+                    </label>
+                  </div>
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="tables" name="tables" />
+                      <span> שולחנות </span>
+                      <div *ngIf="tables">
+                        <input type="number" [(ngModel)]="tablesAmount" name="tablesAmount" class="col l6 none" required>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="col l3 left-align">
+                    <label>
+                      <input type="checkbox" class="filled-in" [(ngModel)]="mdonot" name="mdonot" />
+                      <span> מדונות </span>
+                      <div *ngIf="mdonot">
+                        <input type="number" [(ngModel)]="mdonotAmount" name="mdonotAmount" class="col l6 none" required>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col l12"> מועד הפעילות </div>
+                </div>
+
+                <div class="row">
+                  <div class="col l3 offset-l2">
+                    <div class="blacking">
+                      שעת סיום
+                    </div>
+                    <input class="none" type="time" [(ngModel)]="endTime" name="endTime" required>
+                  </div>
+                  <div class="col l3">
+                    <div class="blacking">
+                      שעת התחלה
+                    </div>
+                    <input class="none" type="time" [(ngModel)]="startTime" name="startTime" required>
+                  </div>
+                  <div class="col l3">
+                    <div class="blacking">
+                      תאריך
+                    </div>
+                    <input class="none" type="date" min="{{minDate}}" [(ngModel)]="date" name="date" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="moreInfo" type="text" [(ngModel)]="moreInfo" name="moreInfo">
+                    <label for="moreInfo"> הערות </label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col l12 right-align">
+                    <label class="noCursor">
+                      <input type="checkbox" class="filled-in" [(ngModel)]="approvetakanon" name="approvetakanon" required>
+                      <span>
+                        הנני מאשר שקראתי את
+                        <a class="modal-trigger" (click)="openModalTakanon()" href="#modaltakanoon">
+                          התקנון
+                        </a>
+                        ואני מסכים לגביו
+                      </span>
+                    </label>
+                  </div>
+
+                  <div id="modaltakanoon" class="modal sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions2">
+                    <div class="modal-content">
+                      
+                        <div class="row" style="direction: rtl;">
+                            <div class="col l12">
+                              <div class="card blue-grey darken-1">
+                                <div class="card-content white-text right-align">
+                                  <div class="card-title center-align"> אשכול פיס גילה – תקנון אירועים </div>
+                                  <br>
+                                  <div style="line-height:1.9;">
+                                  <p class="right-align">
+                                    1. השכרת האודיטוריום אינה כוללת שימוש בכיתות / מעבדות / סטודיו, למעט סגירת כל הפרטים מראש ובתוספת תשלום.
+                                  </p>
+                                  <p class="right-align">
+                                    2. אשכול הפיס אינו מספק שירותי אבטחה מעבר לשעה 16:00 ובימי פעילות בית הספר.
+                                  </p>
+                                  <p class="right-align">
+                                    3. השוכר אחראי בלעדי על הניקיון כל החדרים שבו השתמש במהלך האירוע בולל האודיטוריום.
+                                  </p>
+                                  <p class="right-align">
+                                    4. כל שעת חריגה מהשעות שצוינו בחוזה תגרור תוספת תשלום על פי מחירון האשכול לפי שעה או חלק ממנה.
+                                  </p>
+                                  <p class="right-align">
+                                    5. השוכר יפקיד סכום של 10% מהסכום המסוכם כמקדמה.
+                                  </p>
+                                  <p class="right-align">
+                                    6. ניתן לבטל/לדחות אירוע עד 7 ימי עסקים לפני קיום האירוע ללא מימוש המקדמה.
+                                  </p>
+                                  <p class="right-align">
+                                    7. את התשלום יש להעביר לפקודת "בית הספר מקיף גילה" ולא יאוחר מ-30 ימים לאחר מועד האירוע.
+                                  </p>
+                                  <p class="right-align">
+                                    8. הלקוח יפקיד סכום פיקדון כערבון לכל אי ביצוע של אחד או יותר מהסעיפים בתקנון.
+                                  </p>
+                                  <p class="right-align">
+                                    9. באחריות המשכיר לא לאפשר כניסה לאודיטוריום עם מזון ושתייה, לרבות בזמני חזרות ולצוות האירוע.
+                                  </p>
+                                  <p class="right-align">
+                                    10. על השוכר לדאוג להחזיר את כלל החדרים שבו השתמש במהלך האירוע, כולל האודיטוריום (לרבות אזור הבמה) במצב ניקיון סביר (ריקון
+                                    פחים, טאטו).
+                                  </p>
+                                  <p class="right-align">
+                                    11. השימוש בתאורה ובהגברה מקצועית תבוצע על ידי איש מקצוע מטעם אשכול הפיס בלבד.
+                                  </p>
+                                  <p class="right-align">
+                                    12. לא תתאפשר כניסה והתחברות למערכת ההגברה והתאורה על ידי גורם חיצוני מטעם השוכר.
+                                  </p>
+                                  <p class="right-align">
+                                    13. על השוכר למנות מישהו מטעמו לצורך תפעול ושימוש של מערכת ההגברה הבסיסית (2 מיקרופונים ומחשב), במידת הצורף תבוצע הדרכה בלבד
+                                    על הציוד.
+                                  </p>
+                                  <p class="right-align">
+                                    14. שעות ההשכרה נחשבות כל עוד השוכר שוהה במקום ומשתמש בחדרים אותם הזמין, לרבות בזמני חזרות, הרכבה ופירוק בסיום האירוע.
+                                  </p>
+                                  <p class="right-align">
+                                    15. אין להשאיר ציוד, תפאורה, מזון וכדומה בשטח האשכול לאחר סיום האירוע.
+                                  </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <div class="col l12 center-align">
+                          <a class="waves-effect waves-green btn-flat center-align" (click)="closeModalfree()"> קראתי את התקנון </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-s12 center-align">
+
+
+                    <div *ngIf="eventName && startTime && endTime && date && !noRoomChosen && approvetakanon === true">
+                      <!-- Modal Trigger -->
+                      <a class="waves-effect waves-light btn modal-trigger" (click)="openModal()" href="#modal1"> אשר וצור אירוע </a>
+
+                      <!-- Modal Structure -->
+
+                      <div id="modal1" class="modal sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+                        <div class="modal-content">
+                          <h4> פרטי האירוע / הפעילות </h4>
+                          <p class="right-align">
+                            שם הפעילות : {{eventName}}
+                          </p>
+                          <p class="right-align">
+                            חדרים מבוקשים :
+                            <span *ngIf="auditorium === true"> אודיטוריום , </span>
+                            <span *ngIf="amnot === true"> אמנות , </span>
+                            <span *ngIf="lobby === true"> לובי , </span>
+                            <span *ngIf="classA === true"> מעבדה א , </span>
+                            <span *ngIf="classB === true"> מעבדה ב , </span>
+                            <span *ngIf="classC === true"> מעבדה ג , </span>
+                            <span *ngIf="classD === true"> מעבדה ד , </span>
+                            <span *ngIf="classE === true"> מעבדה ה , </span>
+                          </p>
+                          <div *ngIf="noAccessoriesChosen === false">
+                            <p class="right-align">
+                              ציוד נדרש :
+                              <span *ngIf="personSound === true"> איש סאונד , </span>
+                              <span *ngIf="personLight === true"> איש תאורה , </span>
+                              <span *ngIf="microphones === true"> מיקרופונים , </span>
+                              <span *ngIf="mdonot === true"> מדונות , </span>
+                              <span *ngIf="tables === true"> שולחנות , </span>
+                              <span *ngIf="chairs === true"> כסאות , </span>
+                            </p>
+                          </div>
+
+                          <p class="right-align">
+                            <span *ngIf="microphonesAmount > 0;"> מספר מיקרופונים : {{microphonesAmount}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="mdonotAmount > 0;"> מספר מדונות : {{mdonotAmount}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="chairsAmount > 0;"> מספר כסאות : {{chairsAmount}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="tablesAmount > 0;"> מספר שולחנות : {{tablesAmount}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="date"> תאריך הפעילות : {{date}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="startTime"> שעת תחילת הפעילות : {{startHour}}:{{startMinute}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="endTime"> שעת סיום הפעילות : {{endHour}}:{{endMinute}} </span>
+                          </p>
+                          <p class="right-align">
+                            <span *ngIf="price"> מחיר הפעילות לפי הניתונים שהזנת : {{price}} </span>
+                          </p>
+
+                        </div>
+                        <div class="modal-footer">
+                          <div class="col l6 center-align">
+                            <a class="waves-effect waves-green btn-flat center-align" (click)="closeModal()"> בטל אירוע </a>
+                          </div>
+                          <div class="col l6 center-align">
+                            <a class="modal-action modal-close waves-effect waves-green btn-flat center-align" (click)="addEvent()"> אשר אירוע </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+
+
+        </div>
+        <!-- End Page -->
+      </div>
+      <div *ngIf="userIsNotConfirmedYet">
+        <ul class="collection with-header center">
+          <li class="collection-header">
+            <h6> חשבון עדיין לא מאושר </h6>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

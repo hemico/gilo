@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col l12">
+    <ul class="collection with-header center">
+      <li class="collection-header">
+        <h4> ניהול ארגונים </h4>
+        <div class="right-align" style="margin-top:-40px">
+          <div *ngIf="addIconEnabled; else addIconDisabled">
+            <button (click)="addIconFun()" class="btn" style="margin-right:20px;margin-top:-15px;"> הוסף ארגון </button>
+            <i (click)="addIconFun()" class="material-icons" style="cursor: pointer;">add_circle</i>
+          </div>
+          <ng-template #addIconDisabled>
+            <i (click)="addIconFun()" class="material-icons" style="cursor: pointer;">cancel</i>
+          </ng-template>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <flash-messages></flash-messages>
+</div>
+
+<div *ngIf="EnableAddForm">
+
+  <div class="row center-align" style="color:purple;font-style: italic;text-decoration: underline;">
+    <h4> הוספת ארגון חדש </h4>
+  </div>
+
+  <div class="row">
+    <form class="col l12" #form="ngForm" (ngSubmit)="addOrganization()">
+      <div class="row">
+        <div class="input-field col l3">
+          <input id="organizationEmail" type="text" [(ngModel)]="organization.Email" name="organization.Email">
+          <label for="organizationEmail"> מייל </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="organizationId" type="text" [(ngModel)]="organization.Id" name="organization.Id">
+          <label for="organizationId"> ח.פ </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="organizationManager" required type="text" [(ngModel)]="organization.ManagerName" name="organization.ManagerName">
+          <label for="organizationManager"> שם מנהל </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="organizationName" type="text" required [(ngModel)]="organization.Name" name="organization.Name">
+          <label for="organizationName"> שם ארגון </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col l3">
+          <input id="organizationAddress" type="text" [(ngModel)]="organization.Address" name="organization.Address">
+          <label for="organizationAddress"> כתובת </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="organizationFax" type="number" [(ngModel)]="organization.Fax" name="organization.Fax">
+          <label for="organizationFax"> פקס </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="organizationMobile" required type="number" [(ngModel)]="organization.Mobile" name="organization.Mobile">
+          <label for="organizationMobile"> פלאפון </label>
+        </div>
+        <div class="input-field col l3">
+          <input id="organizationPhone" type="number" [(ngModel)]="organization.Phone" name="organization.Phone">
+          <label for="organizationPhone"> טלפון </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col l12 center-align">
+          <button class="btn" [disabled]="!form.valid"> הוסף ארגון </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col l12">
+    <table>
+      <thead>
+        <tr>
+          <th> מחק ארגון </th>
+          <th > כתובת </th>
+          <th > פקס </th>
+          <th > פלאפון </th>
+          <th > טלפון </th>
+          <th > דואר אלקטרוני </th>
+          <th > מנהל ארגון </th>
+          <th > ח.פ ארגון </th>
+          <th > שם </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let org of Organizations">
+          <td>
+            <i (click)="DeleteOrginization(org.id , org.Name)" class="material-icons" style="cursor: pointer;">delete</i>
+          </td>
+          <td> {{org.Address}} </td>
+          <td> {{org.Fax}} </td>
+          <td> {{org.Mobile}} </td>
+          <td> {{org.Phone}} </td>
+          <td> {{org.Email}} </td>
+          <td> {{org.ManagerName}} </td>
+          <td> {{org.Id}} </td>
+          <td> {{org.Name}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

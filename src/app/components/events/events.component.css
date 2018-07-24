@@ -1,0 +1,46 @@
+.bodyEvents {
+ color:black;
+}
+thead {
+    background-color:#E0E0E0;
+    color:blue;
+}
+thead.none {
+    background-color:#E0E0E0;
+    color:black;
+}
+th {
+    text-align: right;
+    cursor: pointer;
+}
+td {
+    text-align: right;
+}
+tr:hover {
+    background-color:#E0E0E0;
+}
+input {
+    text-align: center;
+}
+.danger {
+    background-color:red;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+.success {
+    background-color:green;
+    padding:10px;
+    color:white;
+    width: 500px;
+    border : 1px solid grey;
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}

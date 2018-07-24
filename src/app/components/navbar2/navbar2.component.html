@@ -1,0 +1,214 @@
+<div *ngIf="userIsLoggedIn === false" class="bodynavbar2">
+  <div class="row center-align">
+    <div class="col l9">
+        <ul class=" hide-on-med-and-down">
+          <li>
+            <a class="btn btnlink" routerLink="/contact"> צור קשר </a>
+          </li>
+          <li>
+            <a class="btn btnlink" routerLink="/about"> עלינו </a>
+          </li>
+          <li>
+            <a class="btn btnlink" routerLink="/login"> התחברות </a>
+          </li>
+          <li>
+            <a class="btn btnlink" routerLink="/register"> הרשמה </a>
+          </li>
+          <li>
+            <a class="btn btnlink" routerLink="/createevent"> צור אירוע </a>
+          </li>
+          <li>
+            <a class="btn btnlink" routerLink="/calendar"> יומן אירועים </a>
+          </li>
+        </ul>
+    </div>
+    <div class="col l3 right-align">
+      <img src="{{logo}}" routerLink="" style="cursor: pointer">
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="userIsLoggedIn === true && userIsAdmin === true " class="bodynavbar2">
+  <div class="row">
+    <!-- -->
+    <div class="col l1">
+      <div class="profile">
+        <i class="medium material-icons" style="margin-left:5px;">account_circle</i>
+        <br>
+        <div class="profileName">
+          <div *ngIf="userIsLoggedIn">
+            <span>
+              {{userEmail}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 left-align">
+    </div>
+    <!-- -->
+    <div class="col l2 right-align">
+      <div class="row">
+        <div class="title">
+          מערכת ניהול בית ספר גילה
+          <div class="title2">
+            שלום לך מנהל
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align" style="padding-top:20px;">
+      <div>
+        <button class="btn" (click)="signOut()">
+          <span> יציאה מהמערכת </span>
+        </button>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align">
+      <img src="{{logo}}" routerLink="" style="cursor: pointer">
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="userIsLoggedIn === true && userIsGazbar === true " class="bodynavbar2">
+  <div class="row">
+    <!-- -->
+    <div class="col l1">
+      <div class="profile">
+        <i class="medium material-icons" style="margin-left:5px;">account_circle</i>
+        <br>
+        <div class="profileName">
+          <div *ngIf="userIsLoggedIn">
+            <span>
+              {{userEmail}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 left-align">
+    </div>
+    <!-- -->
+    <div class="col l2 right-align">
+      <div class="row">
+        <div class="title">
+          מערכת ניהול בית ספר גילה
+          <div class="title2">
+            שלום לך גזבר
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align" style="padding-top:20px;">
+      <div>
+        <button class="btn" (click)="signOut()">
+          <span> יציאה מהמערכת </span>
+        </button>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align">
+      <img src="{{logo}}" routerLink="" style="cursor: pointer">
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="userIsLoggedIn === true  && userIsClient === true " class="bodynavbar2">
+  <div class="row">
+    <!-- -->
+    <div class="col l1">
+      <div class="profile">
+        <i class="medium material-icons" style="margin-left:5px;">account_circle</i>
+        <br>
+        <div class="profileName">
+          <div *ngIf="userIsLoggedIn">
+            <span>
+              {{userEmail}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 left-align">
+    </div>
+    <!-- -->
+    <div class="col l2 right-align">
+      <div class="row">
+        <div class="title">
+          מערכת ניהול בית ספר גילה
+          <div class="title2">
+            {{tempResult[0].Name}} - {{tempResult[0].Org}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align" style="padding-top:20px;">
+      <div>
+        <button class="btn" (click)="signOut()">
+          <span> יציאה מהמערכת </span>
+        </button>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align">
+      <img src="{{logo}}" routerLink="" style="cursor: pointer">
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="userIsLoggedIn && userIsWorker" class="bodynavbar2">
+  <div class="row">
+    <!-- -->
+    <div class="col l1">
+      <div class="profile">
+        <i class="medium material-icons" style="margin-left:5px;">account_circle</i>
+        <br>
+        <div class="profileName">
+          <div *ngIf="userIsLoggedIn">
+            <span>
+              {{userEmail}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 left-align">
+    </div>
+    <!-- -->
+    <div class="col l2 right-align">
+      <div class="row">
+        <div class="title">
+          מערכת ניהול בית ספר גילה
+          <div class="title2">
+              שלום {{tempResult[0].Name}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align" style="padding-top:20px;">
+      <div>
+        <button class="btn" (click)="signOut()">
+          <span> יציאה מהמערכת </span>
+        </button>
+      </div>
+    </div>
+    <!-- -->
+    <div class="col l3 right-align">
+      <img src="{{logo}}" routerLink="" style="cursor: pointer">
+    </div>
+  </div>
+</div>
