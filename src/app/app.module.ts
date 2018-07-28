@@ -45,6 +45,9 @@ import { UsersComponent } from './components/users/users.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutComponent } from './components/about/about.component';
+import { CalendarModule } from 'angular-calendar';
+import { CalendarHeaderComponent } from './components/calendar/calendar-header.component';
+
 
 
 export const appRoutes: Routes = [
@@ -92,6 +95,7 @@ export const appRoutes: Routes = [
     ContactComponent,
     RegisterComponent,
     AboutComponent,
+    CalendarHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -106,6 +110,7 @@ export const appRoutes: Routes = [
     FormsModule,
     MaterializeModule,
     NgxChartsModule,
+    CalendarModule.forRoot()
   ],
   providers: [
     WorkersService,
@@ -121,6 +126,7 @@ export const appRoutes: Routes = [
     UserService,
     MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [CalendarHeaderComponent]
 })
 export class AppModule { }

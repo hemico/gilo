@@ -24,13 +24,17 @@ export class EventService {
   }
 
   getallEvents() {
-    return this.afs.collection('events' , ref => ref.orderBy('start_time' , 'asc')).snapshotChanges().pipe(
+    return this.getallEventsPipe().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
     );
+  }
+
+  getallEventsPipe() {
+    return this.afs.collection('events' , ref => ref.orderBy('start_time' , 'asc')).snapshotChanges();
   }
 
   getNextEvent(time) {
