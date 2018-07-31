@@ -1,8 +1,8 @@
 <div class="body" *ngIf="userIsAdmin === true">
 
         <flash-messages></flash-messages>
-               
-      
+
+
         <div class="row paddingHelper">
           <div class="boxThree">
             <div class="boxTitle">
@@ -43,6 +43,12 @@
                 <span *ngIf="nextEvent.chairs"> , כיסאות - {{nextEvent.chairsAmount}} </span>
                 <span *ngIf="nextEvent.personSound"> , איש סאונד </span>
                 <span *ngIf="nextEvent.personLight"> , איש תאורה </span>
+              </div>
+              <div class="boxContent">
+                סכום אירוע : {{nextEvent.price}}
+              </div>
+              <div class="boxContent">
+                חוב אירוע : {{nextEvent.price - nextEvent.paid}}
               </div>
             </div>
           </div>
@@ -86,10 +92,16 @@
                 <span *ngIf="previousEvent.personSound"> , איש סאונד </span>
                 <span *ngIf="previousEvent.personLight"> , איש תאורה </span>
               </div>
+              <div class="boxContent">
+                סכום אירוע : {{previousEvent.price}}
+              </div>
+              <div class="boxContent">
+                חוב אירוע : {{previousEvent.price - previousEvent.paid}}
+              </div>
             </div>
           </div>
 
-        
+
                 <div class="boxOne">
                   <div class="boxTitle">
                     לקוחות ממתינים לאישור
@@ -108,7 +120,7 @@
                     </div>
                   </ng-template>
                 </div>
-              
+
                 <div class="row paddingHelper">
                         <div class="col l6 blackColorText">
                           <ul materialize="collapsible" class="collapsible">
@@ -137,7 +149,7 @@
                           </ul>
                         </div>
                       </div>
-        
+
                       <div class="row paddingHelper">
                             <div class="col l6 blackColorText">
                               <ul materialize="collapsible" class="collapsible">
@@ -166,5 +178,6 @@
                               </ul>
                             </div>
                           </div>
-      
+
+
       </div>
