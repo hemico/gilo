@@ -109,7 +109,7 @@ export class CalendarComponent implements OnInit {
 
   getUser() {
     this.as.getState()
-      .subscribe(data => {
+      .subscribe((data: any) => {
         if (data !== null) {
           console.log(data);
           this.userIsLoggedIn = true;
@@ -125,7 +125,7 @@ export class CalendarComponent implements OnInit {
   getAdmin() {
     this.who.getAdmin()
       .subscribe(data => {
-        if (!!data.find(x => x.Email === this.userEmail)) {
+        if (!!data.find((x: any) => x.Email === this.userEmail)) {
           this.getAdminEvents();
         } else {
           this.getWorker();
@@ -174,7 +174,15 @@ export class CalendarComponent implements OnInit {
     if (x.classE) {
       usedClass.push({name: 'מעבדה ה', primary: '#964B00', secondary: '#964B00'});
     }
+    if (usedClass.length === 0) {
+      usedClass.push({primary: '#aaaaaa', secondary: '#aaaaaa'});
+    }
     return usedClass;
+  }
+
+  getClassColor(x) {
+    const classObj = this.getClassObject(x)[0];
+    return {primary: classObj.primary, secondary: classObj.secondary}
   }
 
   getClassName(x) {
@@ -193,7 +201,7 @@ export class CalendarComponent implements OnInit {
         return {
           title: this.getTitle(data, false),
           start: new Date(data.start_time),
-          color: this.getClassObject(data),
+          color: this.getClassColor(data),
           meta: {
             event: data
           }
@@ -208,7 +216,7 @@ export class CalendarComponent implements OnInit {
         return {
           title: this.getTitle(data, true),
           start: new Date(data.start_time),
-          color: this.getClassObject(data)[0],
+          color: this.getClassColor(data),
           meta: {
             event: {...data, disableLink: true}
           }
@@ -219,8 +227,8 @@ export class CalendarComponent implements OnInit {
   getWorker() {
     this.who.getWorkers()
       .subscribe(data => {
-        if (!!data.find(x => x.Email === this.userEmail)) {
-          const worker = data.find(x => x.Email === this.userEmail);
+        if (!!data.find((x: any) => x.Email === this.userEmail)) {
+          const worker = data.find((x: any) => x.Email === this.userEmail);
           this.getWorkerEvents(worker);
         } else {
           this.getClient();
@@ -244,7 +252,7 @@ export class CalendarComponent implements OnInit {
       return {
         title: this.getTitle(data, false),
         start: new Date(data.start_time),
-        color: this.getClassObject(data),
+        color: this.getClassColor(data),
         meta: {
           event: data
         }
@@ -255,7 +263,7 @@ export class CalendarComponent implements OnInit {
   getClient() {
     this.who.getUsers()
       .subscribe(data => {
-        const userData = data.find(x => x.Email === this.userEmail);
+        const userData: any = data.find((x: any) => x.Email === this.userEmail);
         if (userData && userData.Confirmed) {
           this.getClientEvents();
         } else {
@@ -273,7 +281,7 @@ export class CalendarComponent implements OnInit {
           return {
             title: this.getTitle(data, false),
             start: new Date(data.start_time),
-            color: this.getClassObject(data),
+            color: this.getClassColor(data),
             meta: {
               event: {...data, disableLink: false}
             }
@@ -282,7 +290,7 @@ export class CalendarComponent implements OnInit {
           return {
             title: this.getTitle(data, true),
             start: new Date(data.start_time),
-            color: {name: '', primary: '#aaaaaa', secondary: '#aaaaaa'},
+            color: this.getClassColor(null),
             meta: {
               event: {...data, disableLink: true}
             }

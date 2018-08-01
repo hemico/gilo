@@ -225,7 +225,7 @@ export class CreateeventComponent implements OnInit {
   getAdmin() {
     this.who.getAdmin()
       .subscribe(data => {
-        if (!!data.find(x => x.Email === this.user.email)) {
+        if (!!data.find((x: any) => x.Email === this.user.email)) {
           this.userIsNotConfirmedYet = false;
           this.fullUserInfoFromDb = {
             Name: 'מנהל מערכת',
