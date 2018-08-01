@@ -16,18 +16,21 @@
           <th> מספר טלפון </th>
           <th (click)="sort('Email')"> דואר אלקטרוני </th>
           <th (click)="sort('Name')"> שם לקוח </th>
+
       </thead>
       <tbody>
         <tr *ngFor="let user of users">
-          <td><div *ngIf="user.Confirmed === true"><i class="far fa-check-circle" style="cursor: pointer" (click)="approveUser(user)"></i> <i class="fa fa-trash" style="margin-left: 10px; cursor: pointer" (click)="deleteUser(user)"></i></div></td>
+          <td><div *ngIf="user.Confirmed === false"><i class="far fa-check-circle" style="cursor: pointer" (click)="approveUser(user)"></i> <i class="fa fa-trash" style="margin-left: 10px; cursor: pointer" (click)="deleteUser(user)"></i></div></td>
             <td> <div *ngIf="user.Confirmed === true" style="color:green;">  מאושר </div> <div *ngIf="user.Confirmed === false" style="color:red;"> לא מאושר </div> </td>
           <td> {{user.address}} </td>
           <td> {{user.Org}} </td>
           <td> {{user.Phone}} </td>
           <td> {{user.Email}} </td>
           <td> {{user.Name}} </td>
+
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+
