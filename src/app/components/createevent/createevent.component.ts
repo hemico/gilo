@@ -7,6 +7,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MaterializeAction } from 'angular2-materialize';
+import {WhoService} from "../../services/who.service";
 
 @Component({
   selector: 'app-createevent',
@@ -77,6 +78,7 @@ export class CreateeventComponent implements OnInit {
 
   constructor(
     private es: EventService,
+    private who: WhoService,
     private check: CheckavailableService,
     private mheronService: MheronService,
     private authService: AuthService,
@@ -210,14 +212,27 @@ export class CreateeventComponent implements OnInit {
         this.us.getUserByEmail(this.user.email)
           .subscribe(data2 => {
             this.fullUserInfoFromDb = data2[0];
-            if (this.fullUserInfoFromDb.Confirmed === false) {
-              this.userIsNotConfirmedYet = true;
+            if (!this.fullUserInfoFromDb) {
+              this.getAdmin();
             } else {
-              this.userIsNotConfirmedYet = false;
+              this.userIsNotConfirmedYet = !this.fullUserInfoFromDb.Confirmed;
             }
           });
       }
     });
+  }
+
+  getAdmin() {
+    this.who.getAdmin()
+      .subscribe(data => {
+        if (!!data.find(x => x.Email === this.user.email)) {
+          this.userIsNotConfirmedYet = false;
+          this.fullUserInfoFromDb = {
+            Name: 'מנהל מערכת',
+            Org: 'מקיף גילה'
+          };
+        }
+      });
   }
 
   getAvailableDates() {

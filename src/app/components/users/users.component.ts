@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/user.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-users',
@@ -13,9 +14,10 @@ export class UsersComponent implements OnInit {
   sortedbyEmail = false;
   sortedbyStatus = false;
   sortedbyOrg = false;
-  constructor(
-    private us: UserService
-  ) { }
+
+  constructor(private us: UserService,
+              private fms: FlashMessagesService) {
+  }
 
   ngOnInit() {
     this.getUsers();
@@ -23,10 +25,10 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this.us.getAllUsers()
-    .subscribe( data => {
-      this.users = data;
-      console.log(this.users);
-    });
+      .subscribe(data => {
+        this.users = data;
+        console.log(this.users);
+      });
   }
 
   sort(type) {
@@ -61,8 +63,8 @@ export class UsersComponent implements OnInit {
       return;
     }
     if (type === 'Status' && !this.sortedbyStatus) {
-      const temp1 = this.users.filter( x => x.Confirmed === true );
-      const temp2 = this.users.filter( x => x.Confirmed === false );
+      const temp1 = this.users.filter(x => x.Confirmed === true);
+      const temp2 = this.users.filter(x => x.Confirmed === false);
       this.users.length = 0;
       this.users = this.users.concat(temp1);
       this.users = this.users.concat(temp2);
@@ -70,15 +72,36 @@ export class UsersComponent implements OnInit {
       return;
     }
     if (type === 'Status' && this.sortedbyStatus) {
-      const temp1 = this.users.filter( x => x.Confirmed === true );
-      const temp2 = this.users.filter( x => x.Confirmed === false );
+      const temp1 = this.users.filter(x => x.Confirmed === true);
+      const temp2 = this.users.filter(x => x.Confirmed === false);
       this.users.length = 0;
       this.users = this.users.concat(temp2);
       this.users = this.users.concat(temp1);
       this.sortedbyStatus = false;
       return;
     }
-    
   }
+
+  approveUser(unConfirmedUser) {
+    unConfirmedUser.Confirmed = true;
+    this.us.approveUser(unConfirmedUser.id, unConfirmedUser)
+      .then(() => {
+        this.fms.show(' לקוח ' + unConfirmedUser.Name + ' מארגון ' + unConfirmedUser.Org + ' אושר בהצלחה ', {
+          cssClass: 'success',
+          timeout: 5000
+        });
+      });
+  }
+
+  deleteUser(unConfirmedUser) {
+    this.us.deleteUser(unConfirmedUser.id)
+      .then(() => {
+        this.fms.show(' לקוח ' + unConfirmedUser.Name + ' מארגון ' + unConfirmedUser.Org + ' נמחק ', {
+          cssClass: 'success',
+          timeout: 5000
+        });
+      });
+  }
+
 
 }

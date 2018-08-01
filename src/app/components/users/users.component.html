@@ -9,6 +9,7 @@
   <div class="col l12">
     <table>
       <thead>
+        <th>פעולות</th>
           <th (click)="sort('Status')"> סטטוס </th>
           <th> כתובת </th>
           <th (click)="sort('Org')"> ארגון </th>
@@ -18,6 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let user of users">
+          <td><div *ngIf="user.Confirmed === true"><i class="far fa-check-circle" style="cursor: pointer" (click)="approveUser(user)"></i> <i class="fa fa-trash" style="margin-left: 10px; cursor: pointer" (click)="deleteUser(user)"></i></div></td>
             <td> <div *ngIf="user.Confirmed === true" style="color:green;">  מאושר </div> <div *ngIf="user.Confirmed === false" style="color:red;"> לא מאושר </div> </td>
           <td> {{user.address}} </td>
           <td> {{user.Org}} </td>

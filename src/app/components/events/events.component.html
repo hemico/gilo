@@ -1,8 +1,12 @@
+
 <div class="bodyEvents">
     <div class="row">
         <!-- Begin Page -->
         <div class="col l12">
-
+          <div *ngIf="userIsAdmin">
+            <a class="waves-effect waves-light btn" style="margin-top:15px" (click)="exportToCSV()">
+              <i class="material-icons right">cloud_download</i> ייצוא לאקסל </a>
+          </div>
             <div class="row">
                 <div class="col s12 center-align">
                     <flash-messages></flash-messages>

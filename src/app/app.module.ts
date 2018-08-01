@@ -47,6 +47,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AboutComponent } from './components/about/about.component';
 import { CalendarModule } from 'angular-calendar';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header.component';
+import {ClientconfirmedGuard} from "./guards/clientconfirmed.guard";
 
 
 
@@ -60,7 +61,7 @@ export const appRoutes: Routes = [
   { path: 'organizations', component: OrginizationsComponent, canActivate: [AdminGuard] },
   { path: 'mheron', component: MheronComponent, canActivate: [AdminGuard] },
   { path: 'events', component: EventsComponent, canActivate: [LoginGuard] },
-  { path: 'createevent', component: CreateeventComponent, canActivate: [ClientGuard] },
+  { path: 'createevent', component: CreateeventComponent, canActivate: [ClientconfirmedGuard] },
   { path: 'workers', component: WorkersComponent, canActivate: [AdminGuard] },
   { path: 'messageToWorkers', component: MessagetoworkersComponent, canActivate: [AdminGuard] },
   { path: 'messageToClients', component: MessagetoclientsComponent, canActivate: [AdminGuard] },

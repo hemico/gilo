@@ -1,8 +1,8 @@
 <mwl-demo-utils-calendar-header
   [(view)]="view"
   [(viewDate)]="viewDate"
-  (viewDateChange)="fetchEvents()"
-  (viewChange)="fetchEvents()">
+  (viewDateChange)="getUser()"
+  (viewChange)="getUser()">
 </mwl-demo-utils-calendar-header>
 
 <ng-template #loading>
@@ -35,5 +35,114 @@
       [events]="events"
       (eventClicked)="eventClicked($event.event)">
     </mwl-calendar-day-view>
+  </div>
+</div>
+
+<div *ngIf="tempEvent" id="modal1" class="modal sheet" materialize="modal" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="modalActions">
+  <div class="modal-content">
+    <div class="col l12 center-align">
+      <h4>
+        פרטי האירוע
+      </h4>
+    </div>
+    <div class="col l12 right-align">
+      <div style="font-weight: bold;">
+        נוצר על ידי
+      </div>
+      <p>
+        שם : {{tempEvent.createdByName}}
+      </p>
+      <p>
+        {{tempEvent.createdBy}} : דוא"ל
+      </p>
+      <p>
+        ארגון : {{tempEvent.orgName}}
+      </p>
+      <div style="font-weight: bold;">
+        פרטי האירוע
+      </div>
+      <p>
+        שם פעילות : {{tempEvent.name}}
+      </p>
+
+      <div class="row">
+        <div class="col l4 offset-l6">
+          {{tempEvent.start_time}}
+        </div>
+        <div class="col l2">
+          : התחלה
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 offset-l6">
+          {{tempEvent.end_time}}
+        </div>
+        <div class="col l2">
+          : סיום
+        </div>
+      </div>
+
+      <p style="font-weight: bold;">
+        :חדרים שנבחרו
+      </p>
+      <span *ngIf="tempEvent.amnot === true">
+                ,אמנות
+            </span>
+      <span *ngIf="tempEvent.auditorium === true">
+                ,אודיטוריום
+            </span>
+      <span *ngIf="tempEvent.lobby === true">
+                ,לובי
+            </span>
+      <span *ngIf="tempEvent.classA === true">
+                ,מעבדה א
+            </span>
+      <span *ngIf="tempEvent.classB === true">
+                ,מעבדה ב
+            </span>
+      <span *ngIf="tempEvent.classC === true">
+                ,מעבדה ג
+            </span>
+      <span *ngIf="tempEvent.classD === true">
+                ,מעבדה ד
+            </span>
+      <span *ngIf="tempEvent.classE === true">
+                מעבדה ה
+            </span>
+
+      <p style="font-weight: bold;">
+        :ציוד שנבחר
+      </p>
+      <span *ngIf="tempEvent.mdonot === true">
+                מדונות : {{tempEvent.mdonotAmount}}
+            </span>
+      <span *ngIf="tempEvent.tables === true">
+                שולחנות : {{tempEvent.tablesAmount}}
+            </span>
+      <span *ngIf="tempEvent.chairs === true">
+                כיסאות : {{tempEvent.chairsAmount}}
+            </span>
+      <span *ngIf="tempEvent.microphones === true">
+                מיקרופונים : {{tempEvent.microphonesAmount}}
+            </span>
+
+      <p>
+        עלות האירוע : {{tempEvent.price}}
+      </p>
+      <p style="color:red;" *ngIf="tempEvent.price - tempEvent.paid > 0">
+        חוב האירוע : {{tempEvent.price - tempEvent.paid}}
+      </p>
+      <p style="color:green;" *ngIf=" !(tempEvent.price - tempEvent.paid) > 0">
+        אין חוב לאירוע זה
+      </p>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="col l12 center-align">
+      <a class="waves-effect waves-green btn-flat center-align" (click)="closeModal()"> חזרה ליומן </a>
+    </div>
   </div>
 </div>

@@ -32,6 +32,9 @@ input {
     text-align: center;
     width: 100%;
     margin: auto;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
 }
 .success {
     background-color:green;

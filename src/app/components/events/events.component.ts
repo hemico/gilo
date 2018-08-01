@@ -1,11 +1,12 @@
-import { Component, OnInit, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { EventService } from '../../services/event.service';
-import { AuthService } from '../../services/auth.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { WhoService } from '../../services/who.service';
-import { MaterializeAction } from 'angular2-materialize';
-import { Router } from '@angular/router';
-import { CheckavailableService } from '../../services/checkavailable.service';
+import {Component, OnInit, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {EventService} from '../../services/event.service';
+import {AuthService} from '../../services/auth.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {WhoService} from '../../services/who.service';
+import {MaterializeAction} from 'angular2-materialize';
+import {Router} from '@angular/router';
+import {CheckavailableService} from '../../services/checkavailable.service';
+import {Angular5Csv} from 'angular5-csv/Angular5-csv';
 
 @Component({
   selector: 'app-events',
@@ -52,14 +53,14 @@ export class EventsComponent implements OnInit {
 
   todaysDate = new Date().getTime();
 
-  constructor(
-    private es: EventService,
-    private as: AuthService,
-    private fms: FlashMessagesService,
-    private who: WhoService,
-    private router: Router,
-    private check: CheckavailableService,
-  ) { }
+  constructor(private es: EventService,
+              private as: AuthService,
+              private fms: FlashMessagesService,
+              private who: WhoService,
+              private router: Router,
+              private check: CheckavailableService,) {
+  }
+
   modalActions = new EventEmitter<string | MaterializeAction>();
 
   openDiscount(event) {
@@ -67,8 +68,8 @@ export class EventsComponent implements OnInit {
   }
 
   approvePriceChange() {
-    if (this.DiscountPercentage > 99 || this.DiscountPercentage < 1) {
-      this.fms.show('לא ניתן לתת הנחה כזו', { cssClass: 'danger', timeout: 5000 });
+    if (this.DiscountPercentage > 100 || this.DiscountPercentage < 1) {
+      this.fms.show('לא ניתן לתת הנחה כזו', {cssClass: 'danger', timeout: 5000});
       this.DiscountPercentage = null;
       return 0;
     } else {
@@ -79,14 +80,14 @@ export class EventsComponent implements OnInit {
         .then(() => {
           this.DiscountTo = null;
           this.DiscountPercentage = null;
-          this.fms.show('ההנחה בוצעה בהצלחה', { cssClass: 'success', timeout: 5000 });
+          this.fms.show('ההנחה בוצעה בהצלחה', {cssClass: 'success', timeout: 5000});
         });
     }
   }
 
   approvePriceChangeUnconfirmed() {
-    if (this.DiscountPercentage > 99 || this.DiscountPercentage < 1) {
-      this.fms.show('לא ניתן לתת הנחה כזו', { cssClass: 'danger', timeout: 5000 });
+    if (this.DiscountPercentage > 100 || this.DiscountPercentage < 1) {
+      this.fms.show('לא ניתן לתת הנחה כזו', {cssClass: 'danger', timeout: 5000});
       this.DiscountPercentage = null;
       return 0;
     } else {
@@ -97,7 +98,7 @@ export class EventsComponent implements OnInit {
         .then(() => {
           this.DiscountTo = null;
           this.DiscountPercentage = null;
-          this.fms.show('ההנחה בוצעה בהצלחה', { cssClass: 'success', timeout: 5000 });
+          this.fms.show('ההנחה בוצעה בהצלחה', {cssClass: 'success', timeout: 5000});
         });
     }
   }
@@ -112,16 +113,17 @@ export class EventsComponent implements OnInit {
         this.es.updateSentBackToClient(event.id, event);
       });
     this.es.deleteUnconfirmedEvent(event.id);
-    this.fms.show('שליחת האירוע בחזרה ללקוח בוצעה בהצלחה', { cssClass: 'success', timeout: 5000 });
+    this.fms.show('שליחת האירוע בחזרה ללקוח בוצעה בהצלחה', {cssClass: 'success', timeout: 5000});
   }
 
   openModal(x) {
-    this.modalActions.emit({ action: 'modal', params: ['open'] });
+    this.modalActions.emit({action: 'modal', params: ['open']});
     this.tempEvent = x;
   }
+
   closeModal() {
-    this.modalActions.emit({ action: 'modal', params: ['close'] });
-    this.tempEvent = { name: '' };
+    this.modalActions.emit({action: 'modal', params: ['close']});
+    this.tempEvent = {name: ''};
   }
 
   ngOnInit() {
@@ -133,7 +135,7 @@ export class EventsComponent implements OnInit {
     if (confirm('הינך עומד לבטל את האירוע, ידוע לי שלא ניתן יהיה להחזיר את האירוע ומועד האירוע מתפנה ללקוח אחר')) {
       this.es.deleteEvent(event.id);
       this.es.addDeletedEvent(event);
-      this.fms.show('האירוע נמחק בהצלחה', { cssClass: 'deletesuccess', timeout: 5000 });
+      this.fms.show('האירוע נמחק בהצלחה', {cssClass: 'deletesuccess', timeout: 5000});
     }
   }
 
@@ -361,7 +363,6 @@ export class EventsComponent implements OnInit {
   }
 
 
-
   sortFuture(type) {
     if (type === 'Name' && !this.sortedbyName) {
       this.events = this.futureEvents.sort((a, b) => a.name > b.name ? 1 : -1);
@@ -482,7 +483,7 @@ export class EventsComponent implements OnInit {
     console.log(x);
   }
 
-    ConfirmEvent(x) {
+  ConfirmEvent(x) {
     this.eventSentBackToClient = null;
     x.start_time = new Date(x.start_time).getTime();
     x.end_time = new Date(x.end_time).getTime();
@@ -543,8 +544,8 @@ export class EventsComponent implements OnInit {
           (this.used_dates[i].usedClass.includes(this.checkwithClassD) && this.checkwithClassD === 'מעבדה ד') ||
           (this.used_dates[i].usedClass.includes(this.checkwithClassE) && this.checkwithClassE === 'מעבדה ה'))
       ) {
-        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', { cssClass: 'danger', timeout: 6000 });
-        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', { cssClass: 'danger', timeout: 6000 });
+        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', {cssClass: 'danger', timeout: 6000});
+        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', {cssClass: 'danger', timeout: 6000});
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
         }, 6000);
@@ -563,8 +564,8 @@ export class EventsComponent implements OnInit {
       ) {
         if ((this.used_dates[i].start_usedincludingFree > x.start_timeOLD && this.used_dates[i].start_usedincludingFree < x.end_timeOLD) ||
           (this.used_dates[i].end_usedincludingFree > x.start_timeOLD && this.used_dates[i].end_usedincludingFree < x.end_timeOLD)) {
-          this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', { cssClass: 'danger', timeout: 6000 });
-          this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', { cssClass: 'danger', timeout: 6000 });
+          this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', {cssClass: 'danger', timeout: 6000});
+          this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', {cssClass: 'danger', timeout: 6000});
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
           }, 6000);
@@ -589,8 +590,8 @@ export class EventsComponent implements OnInit {
       ) {
         if ((this.used_dates[i].start_usedincludingFree > x.start_timeOLD && this.used_dates[i].start_usedincludingFree < x.end_timeOLD) ||
           (this.used_dates[i].end_usedincludingFree > x.start_timeOLD && this.used_dates[i].end_usedincludingFree < x.end_timeOLD)) {
-          this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', { cssClass: 'danger', timeout: 6000 });
-          this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', { cssClass: 'danger', timeout: 6000 });
+          this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', {cssClass: 'danger', timeout: 6000});
+          this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', {cssClass: 'danger', timeout: 6000});
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
           }, 6000);
@@ -611,8 +612,8 @@ export class EventsComponent implements OnInit {
           (this.used_dates[i].usedClass.includes(this.checkwithClassD) && this.checkwithClassD === 'מעבדה ד') ||
           (this.used_dates[i].usedClass.includes(this.checkwithClassE) && this.checkwithClassE === 'מעבדה ה'))
       ) {
-        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', { cssClass: 'danger', timeout: 6000 });
-        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', { cssClass: 'danger', timeout: 6000 });
+        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', {cssClass: 'danger', timeout: 6000});
+        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', {cssClass: 'danger', timeout: 6000});
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
         }, 6000);
@@ -632,8 +633,8 @@ export class EventsComponent implements OnInit {
           (this.used_dates[i].usedClass.includes(this.checkwithClassD) && this.checkwithClassD === 'מעבדה ד') ||
           (this.used_dates[i].usedClass.includes(this.checkwithClassE) && this.checkwithClassE === 'מעבדה ה'))
       ) {
-        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', { cssClass: 'danger', timeout: 6000 });
-        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', { cssClass: 'danger', timeout: 6000 });
+        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', {cssClass: 'danger', timeout: 6000});
+        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', {cssClass: 'danger', timeout: 6000});
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
         }, 6000);
@@ -653,8 +654,8 @@ export class EventsComponent implements OnInit {
           (this.used_dates[i].usedClass.includes(this.checkwithClassD) && this.checkwithClassD === 'מעבדה ד') ||
           (this.used_dates[i].usedClass.includes(this.checkwithClassE) && this.checkwithClassE === 'מעבדה ה'))
       ) {
-        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', { cssClass: 'danger', timeout: 6000 });
-        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', { cssClass: 'danger', timeout: 6000 });
+        this.fms.show('מקום לא פנוי , נא לבחור תאריך אחר', {cssClass: 'danger', timeout: 6000});
+        this.fms.show('האירוע הוסר , נא ליצור אירוע מחדש', {cssClass: 'danger', timeout: 6000});
         setTimeout(() => {
           this.router.navigate(['/createevent']);
         }, 6000);
@@ -663,7 +664,7 @@ export class EventsComponent implements OnInit {
       this.es.addEvent(x);
       this.es.deleteSentBackToClient(x.id);
       this.check.addUsedDates(this.newUsedDate);
-      this.fms.show('הוספת אירוע בהצלחה', { cssClass: 'success', timeout: 4000 });
+      this.fms.show('הוספת אירוע בהצלחה', {cssClass: 'success', timeout: 4000});
       setTimeout(() => {
         this.router.navigate(['/dashboard']);
       }, 4000);
@@ -672,4 +673,59 @@ export class EventsComponent implements OnInit {
 
   }
 
+  exportToCSV() {
+    const events = this.events.slice();
+    events.map(e => {
+      delete e.end_timeOLD;
+      delete e.end_usedincludingFree;
+      delete e.start_timeOLD;
+      delete e.start_usedincludingFree;
+
+      e.start_time = new Date(e.start_time).toLocaleString();
+      e.end_time = new Date(e.end_time).toLocaleString();
+      return e;
+    });
+    new Angular5Csv(events, 'My Report', {
+      showLabels: true, headers: [
+        'id',
+        'amnot',
+        'auditorium',
+        'chairs',
+        'chairsAmount',
+        'classA',
+        'classB',
+        'classC',
+        'classD',
+        'classE',
+        'confirmed',
+        'createdBy',
+        'createdByName',
+        'day',
+        'end_time',
+        // 'end_timeOLD',
+        // 'end_usedincludingFree',
+        'lobby',
+        'mdonot',
+        'mdonotAmount',
+        'microphones',
+        'microphonesAmount',
+        'month',
+        'name',
+        'paid',
+        'personLight',
+        'personSound',
+        'price',
+        'start_time',
+        // 'start_timeOLD',
+        // 'start_usedincludingFree',
+        'tables',
+        'tablesAmount',
+        'theDay',
+        'year'
+      ]});
+  }
+
 }
+
+
+

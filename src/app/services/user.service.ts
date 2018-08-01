@@ -16,6 +16,10 @@ export class UserService {
     return this.afs.collection('Users').add(User);
   }
 
+  deleteUser(id) {
+    return this.afs.collection('Users').doc(id).delete();
+  }
+
   getUnconfirmedUsers() {
     return this.afs.collection('Users', ref => ref.where('Confirmed', '==', false)).snapshotChanges().pipe(
       map(actions => actions.map(a => {

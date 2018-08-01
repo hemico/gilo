@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +79,7 @@ export class EventService {
   }
 
   getEventByUser(userEmail) {
-    return this.afs.collection('events', ref => ref.where('createdBy', '==', userEmail)).snapshotChanges().pipe(
+    return this.getEventByUserPipe(userEmail).pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
@@ -86,6 +87,11 @@ export class EventService {
       }))
     );
   }
+
+  getEventByUserPipe(userEmail) {
+    return this.afs.collection('events', ref => ref.where('createdBy', '==', userEmail)).snapshotChanges();
+  }
+
 
   getEventByUserSentBack(userEmail) {
     return this.afs.collection('sentbacktoclient', ref => ref.where('createdBy', '==', userEmail).limit(1)).snapshotChanges().pipe(
