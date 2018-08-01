@@ -22,8 +22,14 @@ export class AuthService {
   Login(email, password) {
     return this.af.auth.signInWithEmailAndPassword(email, password);
   }
+
   Register(email, password) {
     return this.af.auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  deleteUser() {
+    const user = this.af.auth.currentUser;
+    return user.delete();
   }
 
   updateAccountant() {

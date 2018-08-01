@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-users',
@@ -16,6 +17,7 @@ export class UsersComponent implements OnInit {
   sortedbyOrg = false;
 
   constructor(private us: UserService,
+              private as: AuthService,
               private fms: FlashMessagesService) {
   }
 
@@ -93,15 +95,13 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  deleteUser(unConfirmedUser) {
-    this.us.deleteUser(unConfirmedUser.id)
-      .then(() => {
-        this.fms.show(' לקוח ' + unConfirmedUser.Name + ' מארגון ' + unConfirmedUser.Org + ' נמחק ', {
-          cssClass: 'success',
-          timeout: 5000
-        });
-      });
+  async deleteUser(unConfirmedUser) {
+    await this.us.deleteUser(unConfirmedUser.id);
+    await this.as.deleteUser();
+    this.fms.show(' לקוח ' + unConfirmedUser.Name + ' מארגון ' + unConfirmedUser.Org + ' נמחק ', {
+      cssClass: 'success',
+      timeout: 5000
+    });
   }
-
 
 }
