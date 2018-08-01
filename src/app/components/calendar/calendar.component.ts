@@ -24,6 +24,12 @@ interface Request {
   id: number;
   name: string;
   start_time: number;
+  start_timeOLD: number;
+  end_time: number;
+  createdBy: string;
+  theDay: number;
+  disableLink: boolean;
+
 }
 
 
@@ -37,6 +43,9 @@ export class CalendarComponent implements OnInit {
   view: string = 'month';
   viewDate: Date = new Date();
   user: object = null;
+  userIsLoggedIn: boolean;
+  userEmail: string;
+  tempEvent: any;
 
   constructor(private es: EventService, private as: AuthService, private who: WhoService) {
   }
@@ -109,10 +118,6 @@ export class CalendarComponent implements OnInit {
         } else {
           this.userIsLoggedIn = false;
           this.userEmail = null;
-          this.userIsAdmin = false;
-          this.userIsWorker = false;
-          this.userIsGazbar = false;
-          this.userIsClient = false;
         }
       });
   }
@@ -121,10 +126,6 @@ export class CalendarComponent implements OnInit {
     this.who.getAdmin()
       .subscribe(data => {
         if (!!data.find(x => x.Email === this.userEmail)) {
-          this.userIsAdmin = true;
-          this.userIsWorker = false;
-          this.userIsGazbar = false;
-          this.userIsClient = false;
           this.getAdminEvents();
         } else {
           this.getWorker();
@@ -219,10 +220,6 @@ export class CalendarComponent implements OnInit {
     this.who.getWorkers()
       .subscribe(data => {
         if (!!data.find(x => x.Email === this.userEmail)) {
-          this.userIsAdmin = false;
-          this.userIsWorker = true;
-          this.userIsGazbar = false;
-          this.userIsClient = false;
           const worker = data.find(x => x.Email === this.userEmail);
           this.getWorkerEvents(worker);
         } else {
@@ -260,10 +257,6 @@ export class CalendarComponent implements OnInit {
       .subscribe(data => {
         const userData = data.find(x => x.Email === this.userEmail);
         if (userData && userData.Confirmed) {
-          this.userIsAdmin = false;
-          this.userIsWorker = false;
-          this.userIsGazbar = false;
-          this.userIsClient = true;
           this.getClientEvents();
         } else {
           this.getAnonimizedEvents();
@@ -289,7 +282,7 @@ export class CalendarComponent implements OnInit {
           return {
             title: this.getTitle(data, true),
             start: new Date(data.start_time),
-            color: {primary: '#aaaaaa', secondary: '#aaaaaa'},
+            color: {name: '', primary: '#aaaaaa', secondary: '#aaaaaa'},
             meta: {
               event: {...data, disableLink: true}
             }
@@ -321,12 +314,12 @@ export class CalendarComponent implements OnInit {
   }
 
   eventClicked(event: CalendarEvent<{ event }>): void {
-    const event = event.meta.event;
-    if (!event.disableLink) {
+    const request = event.meta.event;
+    if (!request.disableLink) {
       this.modalActions.emit({action: 'modal', params: ['open']});
-      event.start_time = new Date(event.start_time).toLocaleString();
-      event.end_time = new Date(event.end_time).toLocaleString();
-      this.tempEvent = event;
+      request.start_time = new Date(request.start_time).toLocaleString();
+      request.end_time = new Date(request.end_time).toLocaleString();
+      this.tempEvent = request;
     }
   }
 
