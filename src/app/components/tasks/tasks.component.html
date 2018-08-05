@@ -1,0 +1,32 @@
+<div class="bodyEvents">
+  <div class="row">
+    <!-- Begin Page -->
+    <div class="col l12">
+      <div class="row">
+        <div class="col s12 center-align">
+          <flash-messages></flash-messages>
+        </div>
+      </div>
+
+      <div class="row">
+        <ul class="collection with-header center">
+          <li class="collection-header">
+            <h4>משימות להיום</h4>
+          </li>
+        </ul>
+
+        <ul *ngFor="let task of tasks">
+          <li class="right-align">
+            <label>
+              <input type="checkbox" />
+              <span>{{task}}</span>
+            </label>
+
+            <!--<input type="checkbox"/>-->
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+  </div>

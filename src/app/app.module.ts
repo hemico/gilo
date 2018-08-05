@@ -50,6 +50,7 @@ import { CalendarHeaderComponent } from './components/calendar/calendar-header.c
 import {ClientconfirmedGuard} from './guards/clientconfirmed.guard';
 import localeHe from '@angular/common/locales/he';
 import {registerLocaleData} from '@angular/common';
+import {TasksComponent} from "./components/tasks/tasks.component";
 
 
 registerLocaleData(localeHe);
@@ -71,6 +72,7 @@ export const appRoutes: Routes = [
   { path: 'messageToClients', component: MessagetoclientsComponent, canActivate: [AdminGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
   { path: 'calendar', component: CalendarComponent },
+  { path: 'tasks', component: TasksComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'redirect', component: RedirectComponent }
 ];
@@ -100,7 +102,8 @@ export const appRoutes: Routes = [
     ContactComponent,
     RegisterComponent,
     AboutComponent,
-    CalendarHeaderComponent
+    CalendarHeaderComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
