@@ -19,7 +19,7 @@ export class Navbar2Component implements OnInit {
   userIsWorker;
   userIsGazbar;
   userIsClient;
-  logo = './assets/Images/logo.jpg';
+  logo = './assets/Images/logo2.jpg';
 
   constructor(
     private as: AuthService,

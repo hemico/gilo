@@ -6,9 +6,11 @@ p {
 }
 p#smaller {
     line-height: 2.8;
+    font-size: 25px;
 }
 p#smaller2 {
     line-height: 1;
+    font-size: 20px;
 }
 .body {
     direction: rtl;
