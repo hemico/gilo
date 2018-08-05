@@ -48,7 +48,7 @@ interface Request {
 export class CalendarComponent implements OnInit {
   view: string = 'month';
   viewDate: Date = new Date();
-  user: object = null;
+  user: any = null;
   userIsLoggedIn: boolean;
   userEmail: string;
   tempEvent: any;
