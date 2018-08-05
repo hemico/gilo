@@ -16,6 +16,7 @@ export class TasksComponent implements OnInit {
   user: object = null;
   userIsLoggedIn: boolean;
   userEmail: string;
+  today: string = format(Date.now(), 'DD/MM/YYYY');
 
   constructor(private es: EventService, private as: AuthService, private who: WhoService, private cdr: ChangeDetectorRef) {
   }
@@ -31,7 +32,6 @@ export class TasksComponent implements OnInit {
     this.tasks = [];
     const {email} = await this.getUser();
     if (await this.isWorker(email)) {
-      const worker = await this.getWorker(email);
       this.getWorkerTasks();
     }
   }
@@ -105,27 +105,31 @@ export class TasksComponent implements OnInit {
           const usedClasses = this.getClassObject(event);
           console.log(event);
           usedClasses.forEach(used => {
-            this.tasks.push('פתח ' + used.name + ' בשעה ' + format(event.start_time, 'HH:mm')) ; //open
-            if (event.chairs) {
-              this.tasks.push('הכן ' + event.chairsAmount + ' כסאות ' ); //prepare
-            }
-            if (event.tables) {
-              this.tasks.push('הכן ' + event.tablesAmount + ' שולחות ' ); //prepare
-            }
-            if (event.microphones) {
-              this.tasks.push('הכן ' + event.microphonesAmount + ' מיקופונים ' ); //prepare
-            }
-            if (event.mdonot) {
-              this.tasks.push('הכן ' + event.mdonotAmount + ' מיחמים ' ); //prepare
-            }
-            if (event.personLight) {
-              this.tasks.push('ודא שיש איש תאורה'); //prepare
-            }
-            if (event.personSound) {
-              this.tasks.push('ודא שיש איש סאונד'); //prepare
-            }
-            this.tasks.push('סגור ' + used.name + ' בשעה ' + format(event.end_time, 'HH:mm')) ; //close
+            this.tasks.push('פתח ' + used.name + ' בשעה ' + format(event.start_time, 'HH:mm'));
           });
+          if (event.chairs) {
+            this.tasks.push('הכן ' + event.chairsAmount + ' כסאות ' );
+          }
+          if (event.tables) {
+            this.tasks.push('הכן ' + event.tablesAmount + ' שולחות ' );
+          }
+          if (event.microphones) {
+            this.tasks.push('הכן ' + event.microphonesAmount + ' מיקופונים ' );
+          }
+          if (event.mdonot) {
+            this.tasks.push('הכן ' + event.mdonotAmount + ' מיחמים ' );
+          }
+          if (event.personLight) {
+            this.tasks.push('ודא שיש איש תאורה');
+          }
+          if (event.personSound) {
+            this.tasks.push('ודא שיש איש סאונד');
+          }
+          usedClasses.forEach(used => {
+            this.tasks.push('סגור ' + used.name + ' בשעה ' + format(event.end_time, 'HH:mm')) ;
+          });
+
+
         });
         console.log(this.tasks);
         this.cdr.detectChanges();
