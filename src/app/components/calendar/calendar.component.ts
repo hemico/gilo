@@ -280,7 +280,7 @@ export class CalendarComponent implements OnInit {
     this.es.getallEvents()
       .subscribe(res => {
         this.events$ = res.map((data:any) => {
-          if (data.createdBy === this.userEmail) {
+          if (data.createdBy === this.user.email) {
             return {
               title: this.getTitle(data, false),
               start: new Date(data.start_time),
