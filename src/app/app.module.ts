@@ -110,7 +110,7 @@ export const appRoutes: Routes = [
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(env.firebaseConfig),
     AngularFireAuthModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, {useHash: true}),
     FlashMessagesModule,
     AngularFirestoreModule,
     OwlDateTimeModule,
