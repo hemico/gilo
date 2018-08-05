@@ -1,41 +1,36 @@
-<mwl-demo-utils-calendar-header
+<div class="testtest"></div>
+
+<app-mwl-demo-utils-calendar-header
   [(view)]="view"
   [(viewDate)]="viewDate"
-  (viewDateChange)="getUser()"
-  (viewChange)="getUser()">
-</mwl-demo-utils-calendar-header>
+  (viewDateChange)="refreshData()"
+  (viewChange)="refreshData()">
+</app-mwl-demo-utils-calendar-header>
 
-<ng-template #loading>
-  <div class="text-center">
-    <i class="fa fa-spin fa-spinner fa-5x"></i>
-    <br>
-    Loading events...
-  </div>
-</ng-template>
-
-<div *ngIf="events$ | async; else loading; let events">
-  <div [ngSwitch]="view">
-    <mwl-calendar-month-view
-      *ngSwitchCase="'month'"
-      [viewDate]="viewDate"
-      [events]="events"
-      [activeDayIsOpen]="activeDayIsOpen"
-      (dayClicked)="dayClicked($event.day)"
-      (eventClicked)="eventClicked($event.event)">
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-      *ngSwitchCase="'week'"
-      [viewDate]="viewDate"
-      [events]="events"
-      (eventClicked)="eventClicked($event.event)">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-      *ngSwitchCase="'day'"
-      [viewDate]="viewDate"
-      [events]="events"
-      (eventClicked)="eventClicked($event.event)">
-    </mwl-calendar-day-view>
-  </div>
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events$"
+    [activeDayIsOpen]="activeDayIsOpen"
+    [locale]="locale"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="eventClicked($event.event)">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [locale]="locale"
+    [events]="events$"
+    (eventClicked)="eventClicked($event.event)">
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="'day'"
+    [locale]="locale"
+    [viewDate]="viewDate"
+    [events]="events$"
+    (eventClicked)="eventClicked($event.event)">
+  </mwl-calendar-day-view>
 </div>
 
 <div *ngIf="tempEvent" id="modal1" class="modal sheet" materialize="modal" [materializeParams]="[{dismissible: false}]"

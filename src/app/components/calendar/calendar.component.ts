@@ -1,24 +1,24 @@
-import {Component, ChangeDetectionStrategy, OnInit, EventEmitter} from '@angular/core';
-import {CalendarEvent, CalendarMonthViewDay} from 'angular-calendar';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, NgZone, OnInit} from '@angular/core';
+import {CalendarDateFormatter, CalendarEvent} from 'angular-calendar';
 import {EventService} from '../../services/event.service';
 import {Observable} from 'rxjs/index';
-import {map} from 'rxjs/operators';
 
 import {
-  isSameMonth,
-  isSameDay,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  startOfDay,
   endOfDay,
-  format
+  endOfMonth,
+  endOfWeek,
+  format,
+  isSameDay,
+  isSameMonth,
+  startOfDay,
+  startOfMonth,
+  startOfWeek
 } from 'date-fns';
 import {WhoService} from '../../services/who.service';
 import {AuthService} from '../../services/auth.service';
 import {WeekDay} from '@angular/common';
 import {MaterializeAction} from 'angular2-materialize';
+import {CustomDateFormatter} from './custome-date-formatter.provider';
 
 interface Request {
   id: number;
@@ -37,7 +37,13 @@ interface Request {
   selector: 'app-mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class CalendarComponent implements OnInit {
   view: string = 'month';
@@ -47,91 +53,105 @@ export class CalendarComponent implements OnInit {
   userEmail: string;
   tempEvent: any;
 
-  constructor(private es: EventService, private as: AuthService, private who: WhoService) {
+  constructor(private es: EventService, private as: AuthService, private who: WhoService, private _ngZone: NgZone, private cdr: ChangeDetectorRef) {
   }
 
   modalActions = new EventEmitter<string | MaterializeAction>();
-  events$: Observable<Array<CalendarEvent<{ event: Request }>>>;
+  events$: Array<any>;
   clickedDate: Date;
   activeDayIsOpen: boolean = false;
 
 
   ngOnInit(): void {
-    this.getUser();
+    this.refreshData();
   }
 
-  // async getUser(): Promise<any> {
-  //   if (!this.user) {
-  //     this.user = await this.promisifyObservable(this.as.getState());
-  //   }
-  //   return this.user;
-  // }
-  //
-  // promisifyObservable(o: Observable<any>): Promise<any> {
-  //   return new Promise((resolve) => {
-  //     return o.subscribe(data => {
-  //       resolve(data);
+  async refreshData(): Promise<any> {
+    this.events$ = [];
+    const {email} = await this.getUser();
+    const role = await this.getUserRole(email);
+    switch (role) {
+      case 1: // admin
+        this.getAdminEvents();
+        break;
+      case 2: // worker
+        const worker = await this.getWorker(email);
+        this.getWorkerEvents(worker);
+        break;
+      case 3: // client
+        this.getClientEvents();
+        break;
+      case 0: // none
+      default:
+        this.getAnonimizedEvents();
+    }
+  }
+
+  async getUser(): Promise<any> {
+    if (!this.user) {
+      this.user = await this.promisifyObservable(this.as.getState());
+    }
+    return this.user;
+  }
+
+  promisifyObservable(o: Observable<any>): Promise<any> {
+    return new Promise((resolve) => {
+      return o.subscribe(data => {
+        resolve(data);
+      });
+    });
+  }
+
+  async getUserRole(email): Promise<number> {
+    if (!email) {
+      return 0;
+    }
+    if (await this.isAdmin(email)) {
+      return 1;
+    }
+    if (await this.isWorker(email)) {
+      return 2;
+    }
+    if (await this.isClient(email)) {
+      return 3;
+    }
+    return 4;
+  }
+
+  async isAdmin(email): Promise<boolean> {
+    const users = await this.promisifyObservable(this.who.getAdmin());
+    return !!users.find(u => u.Email === email);
+  }
+
+  async isWorker(email): Promise<boolean> {
+    const users = await  this.promisifyObservable(this.who.getWorkers());
+    return !!users.find(u => u.Email === email);
+  }
+
+  async getWorker(email): Promise<any> {
+    const users = await  this.promisifyObservable(this.who.getWorkers());
+    return users.find(u => u.Email === email);
+  }
+
+  async isClient(email): Promise<boolean> {
+    const users = await this.promisifyObservable(this.who.getUsers());
+    return !!users.find(u => u.Email === email);
+  }
+
+  // getUser() {
+  //   this.as.getState()
+  //     .subscribe((data: any) => {
+  //       if (data !== null) {
+  //         console.log(data);
+  //         this.userIsLoggedIn = true;
+  //         this.userEmail = data.email;
+  //         this.getAdmin();
+  //       } else {
+  //         this.userIsLoggedIn = false;
+  //         this.userEmail = null;
+  //       }
   //     });
-  //   });
   // }
-  //
-  // async getUserRole(): Promise<number> {
-  //   const {email} = await this.getUser();
-  //   if (!email) {
-  //     return 0;
-  //   }
-  //   if (await this.isAdmin(email)) {
-  //     return 1;
-  //   }
-  //   if (await this.isWorker(email)) {
-  //     return 2;
-  //   }
-  //   if (await this.isClient(email)) {
-  //     return 3;
-  //   }
-  //   return 4;
-  // }
-  //
-  // async isAdmin(email): Promise<boolean> {
-  //   const users = await this.promisifyObservable(this.who.getAdmin());
-  //   return !!users.find(u => u.Email === email);
-  // }
-  //
-  // async isWorker(email): Promise<boolean> {
-  //   const users = await  this.promisifyObservable(this.who.getWorkers());
-  //   return !!users.find(u => u.Email === email);
-  // }
-  //
-  // async isClient(email): Promise<boolean> {
-  //   const users = await this.promisifyObservable(this.who.getUsers());
-  //   return !!users.find(u => u.Email === email);
-  // }
-
-  getUser() {
-    this.as.getState()
-      .subscribe((data: any) => {
-        if (data !== null) {
-          console.log(data);
-          this.userIsLoggedIn = true;
-          this.userEmail = data.email;
-          this.getAdmin();
-        } else {
-          this.userIsLoggedIn = false;
-          this.userEmail = null;
-        }
-      });
-  }
-
-  getAdmin() {
-    this.who.getAdmin()
-      .subscribe(data => {
-        if (!!data.find((x: any) => x.Email === this.userEmail)) {
-          this.getAdminEvents();
-        } else {
-          this.getWorker();
-        }
-      });
-  }
 
   getEvent(request: Request, anonimize: boolean): any {
     if (request && request.start_timeOLD) {
@@ -150,29 +170,31 @@ export class CalendarComponent implements OnInit {
 
   getClassObject(x) {
     const usedClass = [];
-    if (x.auditorium) {
-      usedClass.push({name: 'אודיטוריום', primary: '#1974D2', secondary: '#1974D2'});
-    }
-    if (x.amnot) {
-      usedClass.push({name: 'סטודיו', primary: '#551B8C', secondary: '#551B8C'});
-    }
-    if (x.lobby) {
-      usedClass.push({name: 'לובי', primary: '#00FFFF', secondary: '#00FFFF'});
-    }
-    if (x.classA) {
-      usedClass.push({name: 'מעבדה א', primary: '#008000', secondary: '#008000'});
-    }
-    if (x.classB) {
-      usedClass.push({name: 'מעבדה ב', primary: '#FCFFA4', secondary: '#FCFFA4'});
-    }
-    if (x.classC) {
-      usedClass.push({name: 'מעבדה ג', primary: '#FF0800', secondary: '#FF0800'});
-    }
-    if (x.classD) {
-      usedClass.push({name: 'מעבדה ד', primary: '#ED872D', secondary: '#ED872D'});
-    }
-    if (x.classE) {
-      usedClass.push({name: 'מעבדה ה', primary: '#964B00', secondary: '#964B00'});
+    if (x) {
+      if (x.auditorium) {
+        usedClass.push({name: 'אודיטוריום', primary: '#1974D2', secondary: '#1974D2'});
+      }
+      if (x.amnot) {
+        usedClass.push({name: 'סטודיו', primary: '#551B8C', secondary: '#551B8C'});
+      }
+      if (x.lobby) {
+        usedClass.push({name: 'לובי', primary: '#00FFFF', secondary: '#00FFFF'});
+      }
+      if (x.classA) {
+        usedClass.push({name: 'מעבדה א', primary: '#008000', secondary: '#008000'});
+      }
+      if (x.classB) {
+        usedClass.push({name: 'מעבדה ב', primary: '#FCFFA4', secondary: '#FCFFA4'});
+      }
+      if (x.classC) {
+        usedClass.push({name: 'מעבדה ג', primary: '#FF0800', secondary: '#FF0800'});
+      }
+      if (x.classD) {
+        usedClass.push({name: 'מעבדה ד', primary: '#ED872D', secondary: '#ED872D'});
+      }
+      if (x.classE) {
+        usedClass.push({name: 'מעבדה ה', primary: '#964B00', secondary: '#964B00'});
+      }
     }
     if (usedClass.length === 0) {
       usedClass.push({primary: '#aaaaaa', secondary: '#aaaaaa'});
@@ -195,110 +217,91 @@ export class CalendarComponent implements OnInit {
   }
 
   getAdminEvents() {
-    this.events$ = this.es.getallEventsPipe()
-      .pipe(map(actions => actions.map(a => {
-        const data: Request = <Request>a.payload.doc.data();
-        return {
-          title: this.getTitle(data, false),
-          start: new Date(data.start_time),
-          color: this.getClassColor(data),
-          meta: {
-            event: data
-          }
-        };
-      })));
-  }
-
-  getAnonimizedEvents() {
-    this.events$ = this.es.getallEventsPipe()
-      .pipe(map(actions => actions.map(a => {
-        const data: Request = <Request>a.payload.doc.data();
-        return {
-          title: this.getTitle(data, true),
-          start: new Date(data.start_time),
-          color: this.getClassColor(data),
-          meta: {
-            event: {...data, disableLink: true}
-          }
-        };
-      })));
-  }
-
-  getWorker() {
-    this.who.getWorkers()
-      .subscribe(data => {
-        if (!!data.find((x: any) => x.Email === this.userEmail)) {
-          const worker = data.find((x: any) => x.Email === this.userEmail);
-          this.getWorkerEvents(worker);
-        } else {
-          this.getClient();
-        }
-      });
-  }
-
-  getWorkerEvents(worker) {
-    this.events$ = this.es.getallEventsPipe().pipe(map(actions => actions.map(a => {
-      const data: Request = <Request>a.payload.doc.data();
-      return data;
-    }).filter(data => {
-      return data.theDay === WeekDay.Sunday && worker.Sunday
-        || data.theDay === WeekDay.Monday && worker.Monday
-        || data.theDay === WeekDay.Tuesday && worker.Tuesday
-        || data.theDay === WeekDay.Wednesday && worker.Wednesday
-        || data.theDay === WeekDay.Thursday && worker.Thursday
-        || data.theDay === WeekDay.Friday && worker.Friday
-        || data.theDay === WeekDay.Saturday && worker.Saturday;
-    }).map(data => {
-      return {
-        title: this.getTitle(data, false),
-        start: new Date(data.start_time),
-        color: this.getClassColor(data),
-        meta: {
-          event: data
-        }
-      };
-    })));
-  }
-
-  getClient() {
-    this.who.getUsers()
-      .subscribe(data => {
-        const userData: any = data.find((x: any) => x.Email === this.userEmail);
-        if (userData && userData.Confirmed) {
-          this.getClientEvents();
-        } else {
-          this.getAnonimizedEvents();
-        }
-      });
-  }
-
-  getClientEvents() {
-    this.events$ = this.es.getallEventsPipe()
-      .pipe(map(actions => actions.map(a => {
-        const data: Request = <Request>a.payload.doc.data();
-        console.log(data.createdBy);
-        if (data.createdBy === this.userEmail) {
+    this.es.getallEvents()
+      .subscribe(res => {
+        this.events$ = res.map((data:any) => {
           return {
             title: this.getTitle(data, false),
             start: new Date(data.start_time),
             color: this.getClassColor(data),
             meta: {
-              event: {...data, disableLink: false}
+              event: data
             }
           };
-        } else {
+        });
+        this.cdr.detectChanges();
+      });
+  }
+
+  getAnonimizedEvents() {
+    this.es.getallEvents()
+      .subscribe(res => {
+        this.events$ = res.map((data:any) => {
           return {
             title: this.getTitle(data, true),
             start: new Date(data.start_time),
-            color: this.getClassColor(null),
+            color: this.getClassColor(data),
             meta: {
               event: {...data, disableLink: true}
             }
           };
-        }
-      })));
+        });
+        this.cdr.detectChanges();
+      });
   }
 
+  getWorkerEvents(worker) {
+    this.es.getallEvents()
+      .subscribe(res => {
+        this.events$ = res.filter((data:any) => {
+          return data.theDay === WeekDay.Sunday && worker.Sunday
+            || data.theDay === WeekDay.Monday && worker.Monday
+            || data.theDay === WeekDay.Tuesday && worker.Tuesday
+            || data.theDay === WeekDay.Wednesday && worker.Wednesday
+            || data.theDay === WeekDay.Thursday && worker.Thursday
+            || data.theDay === WeekDay.Friday && worker.Friday
+            || data.theDay === WeekDay.Saturday && worker.Saturday;
+        }).map((data:any) => {
+          return {
+            title: this.getTitle(data, false),
+            start: new Date(data.start_time),
+            color: this.getClassColor(data),
+            meta: {
+              event: data
+            }
+          };
+        });
+        this.cdr.detectChanges();
+      });
+  }
+
+  getClientEvents() {
+    this.es.getallEvents()
+      .subscribe(res => {
+        this.events$ = res.map((data:any) => {
+          if (data.createdBy === this.userEmail) {
+            return {
+              title: this.getTitle(data, false),
+              start: new Date(data.start_time),
+              color: this.getClassColor(data),
+              meta: {
+                event: {...data, disableLink: false}
+              }
+            };
+          } else {
+            return {
+              title: this.getTitle(data, true),
+              start: new Date(data.start_time),
+              color: this.getClassColor(null),
+              meta: {
+                event: {...data, disableLink: true}
+              }
+            };
+          }
+        });
+        this.cdr.detectChanges();
+      });
+  }
 
   dayClicked({
                date,

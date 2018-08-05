@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'mwl-demo-utils-calendar-header',
+  selector: 'app-mwl-demo-utils-calendar-header',
   template: `
-    <div class="row text-center">
-      <div class="col-md-4">
+    <div class="row center-align" style="margin-top:20px;">
+      <div class="col s4">
         <div class="btn-group">
           <div
             class="btn btn-primary"
@@ -12,14 +12,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             [view]="view"
             [(viewDate)]="viewDate"
             (viewDateChange)="viewDateChange.next(viewDate)">
-            Previous
+            הקודם
           </div>
           <div
             class="btn btn-outline-secondary"
             mwlCalendarToday
             [(viewDate)]="viewDate"
             (viewDateChange)="viewDateChange.next(viewDate)">
-            Today
+            היום
           </div>
           <div
             class="btn btn-primary"
@@ -27,32 +27,32 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             [view]="view"
             [(viewDate)]="viewDate"
             (viewDateChange)="viewDateChange.next(viewDate)">
-            Next
+            הבא
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+      <div class="col s4">
+        <h5>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h5>
       </div>
-      <div class="col-md-4">
+      <div class="col s4">
         <div class="btn-group">
           <div
             class="btn btn-primary"
             (click)="viewChange.emit('month')"
             [class.active]="view === 'month'">
-            Month
+            חודש
           </div>
           <div
             class="btn btn-primary"
             (click)="viewChange.emit('week')"
             [class.active]="view === 'week'">
-            Week
+            שבוע
           </div>
           <div
             class="btn btn-primary"
             (click)="viewChange.emit('day')"
             [class.active]="view === 'day'">
-            Day
+            יום
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ export class CalendarHeaderComponent {
 
   @Input() viewDate: Date;
 
-  @Input() locale: string = 'en';
+  @Input() locale: string = 'he';
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
 

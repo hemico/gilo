@@ -47,8 +47,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { AboutComponent } from './components/about/about.component';
 import { CalendarModule } from 'angular-calendar';
 import { CalendarHeaderComponent } from './components/calendar/calendar-header.component';
-import {ClientconfirmedGuard} from "./guards/clientconfirmed.guard";
+import {ClientconfirmedGuard} from './guards/clientconfirmed.guard';
+import localeHe from '@angular/common/locales/he';
+import {registerLocaleData} from '@angular/common';
 
+
+registerLocaleData(localeHe);
 
 
 export const appRoutes: Routes = [
