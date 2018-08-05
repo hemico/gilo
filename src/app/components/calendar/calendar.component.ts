@@ -52,6 +52,7 @@ export class CalendarComponent implements OnInit {
   userIsLoggedIn: boolean;
   userEmail: string;
   tempEvent: any;
+  locale: string = 'he';
 
   constructor(private es: EventService, private as: AuthService, private who: WhoService, private _ngZone: NgZone, private cdr: ChangeDetectorRef) {
   }
