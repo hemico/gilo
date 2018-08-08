@@ -49,7 +49,7 @@ ul,li {
 }
 .boxOne {
     background-color:rgba(30, 136, 229, 0.9);
-    height: 400px;
+    height: 450px;
     border: 1px solid white;
     border-radius: 5px;
     float:right;
@@ -62,7 +62,7 @@ ul,li {
     background-color:rgba(233, 30, 99, 0.9);
     */
     background-color:rgba(30, 136, 229, 0.9);
-    height: 400px;
+    height: 450px;
     border: 1px solid white;
     border-radius: 5px;
     float:right;
@@ -75,7 +75,7 @@ ul,li {
     background-color:rgba(63, 81, 181, 0.9);
     */
     background-color:rgba(30, 136, 229, 0.9);
-    height: 400px;
+    height: 450px;
     border: 1px solid white;
     border-radius: 5px;
     float:right;
@@ -154,7 +154,7 @@ ul,li {
     }
     .boxOne {
         background-color:rgba(30, 136, 229, 0.9);
-        height: 400px;
+        height: 450px;
         border: 1px solid white;
         border-radius: 5px;
         float:right;
@@ -166,7 +166,7 @@ ul,li {
         background-color:rgba(233, 30, 99, 0.9);
         */
         background-color:rgba(30, 136, 229, 0.9);
-        height: 400px;
+        height: 450px;
         border: 1px solid white;
         border-radius: 5px;
         float:right;
@@ -178,7 +178,7 @@ ul,li {
         background-color:rgba(63, 81, 181, 0.9);
         */
         background-color:rgba(30, 136, 229, 0.9);
-        height: 400px;
+        height: 450px;
         border: 1px solid white;
         border-radius: 5px;
         float:right;
@@ -218,6 +218,6 @@ ul,li {
         max-width: 95%;
     }
     .paddingHelper {
-        padding-left:30px;    
+        padding-left:30px;
     }
 }

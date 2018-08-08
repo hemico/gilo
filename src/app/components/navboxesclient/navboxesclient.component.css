@@ -84,7 +84,7 @@ ul,li {
     overflow-y: auto;
 }
 .boxFour {
-    background-color:rgba(115, 95, 135, 0.9);
+    background-color:rgba(30, 136, 229, 0.9);
     height: 360px;
     border: 1px solid white;
     border-radius: 5px;
@@ -94,7 +94,7 @@ ul,li {
     overflow-y: auto;
 }
 .boxFive {
-    background-color:rgba(215, 95, 117, 0.9);
+    background-color:rgba(30, 136, 229, 0.9);
     height: 360px;
     border: 1px solid white;
     border-radius: 5px;
@@ -180,7 +180,7 @@ ul,li {
         width: 25%;
     }
     .boxFour {
-        background-color:rgba(115, 95, 135, 0.9);
+        background-color:rgba(30, 136, 229, 0.9);
         height: 300px;
         border: 1px solid white;
         border-radius: 5px;
@@ -189,7 +189,7 @@ ul,li {
         width: 18%;
     }
     .boxFive {
-        background-color:rgba(215, 95, 117, 0.9);
+        background-color:rgba(30, 136, 229, 0.9);
         height: 300px;
         border: 1px solid white;
         border-radius: 5px;
@@ -206,6 +206,6 @@ ul,li {
         max-width: 95%;
     }
     .paddingHelper {
-        padding-left:30px;    
+        padding-left:30px;
     }
 }

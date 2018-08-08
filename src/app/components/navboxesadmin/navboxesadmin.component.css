@@ -49,7 +49,7 @@ ul,li {
 }
 .boxOne {
     background-color:rgba(30, 136, 229, 0.9);
-    height: 400px;
+    height: 450px;
     border: 1px solid white;
     border-radius: 5px;
     float:right;
@@ -59,7 +59,7 @@ ul,li {
 }
 .boxTwo {
     background-color:rgba(30, 136, 229, 0.9);
-    height: 400px;
+    height: 450px;
     border: 1px solid white;
     border-radius: 5px;
     float:right;
@@ -69,7 +69,7 @@ ul,li {
 }
 .boxThree {
     background-color:rgba(30, 136, 229, 0.9);
-    height: 400px;
+    height: 450px;
     border: 1px solid white;
     border-radius: 5px;
     float:right;
@@ -78,7 +78,7 @@ ul,li {
     overflow-y: auto;
 }
 .boxFour {
-    background-color:rgba(115, 95, 135, 0.9);
+    background-color:rgba(30, 136, 229, 0.9);
     height: 360px;
     border: 1px solid white;
     border-radius: 5px;
@@ -88,7 +88,7 @@ ul,li {
     overflow-y: auto;
 }
 .boxFive {
-    background-color:rgba(215, 95, 117, 0.9);
+    background-color:rgba(30, 136, 229, 0.9);
     height: 360px;
     border: 1px solid white;
     border-radius: 5px;
@@ -142,7 +142,7 @@ ul,li {
     }
     .boxOne {
         background-color:rgba(30, 136, 229, 0.9);
-        height: 400px;
+        height: 450px;
         border: 1px solid white;
         border-radius: 5px;
         float:right;
@@ -150,8 +150,8 @@ ul,li {
         width: 25%;
     }
     .boxTwo {
-        background-color:rgba(233, 30, 99, 0.9);
-        height: 400px;
+        background-color:rgba(30, 136, 229, 0.9);
+        height: 450px;
         border: 1px solid white;
         border-radius: 5px;
         float:right;
@@ -159,8 +159,8 @@ ul,li {
         width: 25%;
     }
     .boxThree {
-        background-color:rgba(63, 81, 181, 0.9);
-        height: 400px;
+        background-color:rgba(30, 136, 229, 0.99);
+        height: 450px;
         border: 1px solid white;
         border-radius: 5px;
         float:right;
@@ -168,7 +168,7 @@ ul,li {
         width: 25%;
     }
     .boxFour {
-        background-color:rgba(115, 95, 135, 0.9);
+        background-color:rgba(30, 136, 229, 0.9);
         height: 300px;
         border: 1px solid white;
         border-radius: 5px;
@@ -177,7 +177,7 @@ ul,li {
         width: 18%;
     }
     .boxFive {
-        background-color:rgba(215, 95, 117, 0.9);
+        background-color:rgba(30, 136, 229, 0.9);
         height: 300px;
         border: 1px solid white;
         border-radius: 5px;

@@ -148,7 +148,7 @@
                   <div class="col l3 left-align">
                     <label>
                       <input type="checkbox" class="filled-in" [(ngModel)]="mdonot" name="mdonot" />
-                      <span> מדונות </span>
+                      <span> מיחמיים </span>
                       <div *ngIf="mdonot">
                         <input type="number" [(ngModel)]="mdonotAmount" name="mdonotAmount" class="col l6 none" required>
                       </div>
@@ -308,7 +308,7 @@
                               <span *ngIf="personSound === true"> איש סאונד , </span>
                               <span *ngIf="personLight === true"> איש תאורה , </span>
                               <span *ngIf="microphones === true"> מיקרופונים , </span>
-                              <span *ngIf="mdonot === true"> מדונות , </span>
+                              <span *ngIf="mdonot === true"> מיחמיים , </span>
                               <span *ngIf="tables === true"> שולחנות , </span>
                               <span *ngIf="chairs === true"> כסאות , </span>
                             </p>
@@ -318,7 +318,7 @@
                             <span *ngIf="microphonesAmount > 0;"> מספר מיקרופונים : {{microphonesAmount}} </span>
                           </p>
                           <p class="right-align">
-                            <span *ngIf="mdonotAmount > 0;"> מספר מדונות : {{mdonotAmount}} </span>
+                            <span *ngIf="mdonotAmount > 0;"> מספר מיחמיים : {{mdonotAmount}} </span>
                           </p>
                           <p class="right-align">
                             <span *ngIf="chairsAmount > 0;"> מספר כסאות : {{chairsAmount}} </span>
