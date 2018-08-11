@@ -92,7 +92,6 @@
 </div>
 
 
-
 <div *ngIf="userIsClient === true && userIsLoggedIn === true">
   <div class="body">
     <div class="link" routerLink="/dashboard">
@@ -127,17 +126,18 @@
         יומן
       </div>
     </div>
-    <div class="link" routerLink="/contact">
-      <div class="icon">
-        <i class="fas fa-at"></i>
+    <a href="mailto:eshkol@merkifgilo.co.il" style="color:white">
+      <div class="link">
+        <div class="icon">
+          <i class="fas fa-at"></i>
+        </div>
+        <div class="link-text">
+          צור קשר
+        </div>
       </div>
-      <div class="link-text">
-        צור קשר
-      </div>
-    </div>
+    </a>
   </div>
 </div>
-
 
 
 <div *ngIf="userIsWorker === true && userIsLoggedIn === true">
