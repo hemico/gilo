@@ -1,33 +1,33 @@
 <div *ngIf="userIsLoggedIn === false" class="bodynavbar2">
   <div class="row center-align">
     <div class="col l9">
-        <ul class=" hide-on-med-and-down">
-          <li>
-            <a href="mailto:eshkol@merkifgilo.co.il" class="btn btnlink"> צור קשר </a>
-          </li>
-          <li>
-            <a class="btn btnlink" routerLink="/about"> עלינו </a>
-          </li>
-          <li>
-            <a class="btn btnlink" routerLink="/login"> התחברות </a>
-          </li>
-          <li>
-            <a class="btn btnlink" routerLink="/register"> הרשמה </a>
-          </li>
-          <li>
-            <a class="btn btnlink" routerLink="/login"> צור אירוע </a>
-          </li>
-          <!--<li>-->
-            <!--<a class="btn btnlink" routerLink="/calendar"> יומן אירועים </a>-->
-          <!--</li>-->
-        </ul>
+      <ul class=" hide-on-med-and-down">
+        <li>
+          <a href="mailto:eshkol@merkifgilo.co.il" class="btn btnlink"> צור קשר </a>
+        </li>
+        <li>
+          <a class="btn btnlink" routerLink="/about"> עלינו </a>
+        </li>
+        <li>
+          <a class="btn btnlink" routerLink="/login"> התחברות </a>
+        </li>
+        <li>
+          <a class="btn btnlink" routerLink="/register"> הרשמה </a>
+        </li>
+        <li>
+          <a class="btn btnlink" routerLink="/login"> צור אירוע </a>
+        </li>
+        <!--<li>-->
+        <!--<a class="btn btnlink" routerLink="/calendar"> יומן אירועים </a>-->
+        <!--</li>-->
+      </ul>
     </div>
-    <div class="col l3 right-align">
-      <img src="{{logo}}" routerLink="" style="cursor: pointer">
+    <div class="col l3">
+      <h5 style="position:absolute; margin-top:23px; margin-left:-20px">מערכת לניהול אירועים</h5>
+      <img src="{{logo}}" routerLink="" style="cursor: pointer; position:absolute; top:0; right:0">
     </div>
   </div>
 </div>
-
 
 
 <div *ngIf="userIsLoggedIn === true && userIsAdmin === true " class="bodynavbar2">
@@ -193,7 +193,7 @@
         <div class="title">
           מערכת ניהול אירועים - אשכול פיס גילה
           <div class="title2">
-              שלום {{tempResult[0].Name}}
+            שלום {{tempResult[0].Name}}
           </div>
         </div>
       </div>
